@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`check the style of Landing component check style of LandingLink to Game 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: black;
+  background: #fdd140;
+  border: 1px solid #f77d41;
+  box-sizing: border-box;
+  box-shadow: inset 0px 0px 8px 8px rgba(252,173,58,0.76);
+  border-radius: 11px;
+  padding: 5px 20px;
+  margin: 10px auto;
+  width: 80%;
+  height: 25%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: x-large;
+}
+
+<a
+  className="c0"
+  href="/game"
+  onClick={[Function]}
+/>
+`;
+
+exports[`check the style of Landing component check style of LandingLink to Instructions 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: black;
+  background: #fdd140;
+  border: 1px solid #f77d41;
+  box-sizing: border-box;
+  box-shadow: inset 0px 0px 8px 8px rgba(252,173,58,0.76);
+  border-radius: 11px;
+  padding: 5px 20px;
+  margin: 10px auto;
+  width: 80%;
+  height: 25%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: x-large;
+}
+
+<a
+  className="c0"
+  href="/instructions"
+  onClick={[Function]}
+/>
+`;
+
+exports[`check the style of Landing component check style of LandingWrapper 1`] = `
+.c0 {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 0.5fr;
+  grid-template-rows: 0.5fr 3fr 0.5fr;
+  gap: 1px 1px;
+  height: 100vh;
+}
+
+.c0 #landing {
+  padding: 3%;
+  background: #fe0404;
+  box-shadow: inset 0px 0px 16px 12px rgba(206,66,66,0.55);
+  border-radius: 11px;
+  grid-column-start: 2;
+  grid-row-start: 2;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  -ms-flex-pack: space-evenly;
+  justify-content: space-evenly;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0 .laugh {
+  width: 50%;
+}
+
+.c0 .links {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  width: 80%;
+  height: 50%;
+}
+
+<div
+  className="c0"
+/>
+`;
