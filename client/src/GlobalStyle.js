@@ -9,11 +9,6 @@ export const GlobalStyle = createGlobalStyle`
 
 }
 
-body, html {
-    border: 1px solid black;
-    
-} 
-
 h1 {
     font-family: 'Overpass';
 }
