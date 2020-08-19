@@ -16,7 +16,7 @@ export default function Landing() {
   return (
     <LandingWrapper>
       <div id="landing">
-        <h1 id="landing-title">Emoji Set</h1>
+        <h1 id="title">Emoji Set</h1>
         <div className="laugh">
           <Lottie options={defaultOptions} />
         </div>
