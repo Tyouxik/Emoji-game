@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const InstructionsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  /* grid-template-columns: 1fr; */
+  grid-template-rows: 0.3fr 1fr 1fr 1fr 1fr;
   gap: 3px 1px;
   height: 100vh;
 
@@ -11,10 +11,17 @@ const InstructionsWrapper = styled.div`
     width: 100vw;
     /* height: 20vh; */
     display: flex;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
   }
   section > div {
     max-width: 40%;
     max-height: 100%;
+    padding: 0 2%;
   }
   img {
     height: 100px;
@@ -31,6 +38,16 @@ const InstructionsWrapper = styled.div`
   #instructions-wrapper {
     grid-row-start: 3;
     grid-column-start: 2;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  #instructions-wrapper p {
+    padding: 0 2%;
   }
 
   #good-example-wrapper {
