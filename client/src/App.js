@@ -17,7 +17,7 @@ function App() {
         <Route exact path="/game" component={Game} />
         <Route exact path="/instructions" component={Instructions} />
       </Switch>
-      <LocationDisplay />
+      {/* <LocationDisplay /> */}
     </>
   );
 }
