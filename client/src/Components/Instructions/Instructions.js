@@ -1,64 +1,120 @@
-import React from "react";
-import ExampleCard from "../../Images/images/cool-yellow-2-none.jpg";
-import { InstructionsWrapper, FeatureList } from "./style-instructions";
-
+import React, { useState } from "react";
+import NumberEg from "../../Images/images/examples/number.jpg";
+import TypeEg from "../../Images/images/examples/type.jpg";
+import ColorEg from "../../Images/images/examples/color.jpg";
+import ShadowEg from "../../Images/images/examples/shadow.jpg";
+import {
+  InstructionsWrapper,
+  FeatureList,
+  InstructLink,
+} from "./style-instructions";
+import CY2N from "../../Images/images/cool-yellow-2-none.jpg";
+import CR2L from "../../Images/images/cool-red-2-left.jpg";
+import CB2R from "../../Images/images/cool-blue-2-right.jpg";
+import LB2N from "../../Images/images/laugh-blue-2-none.jpg";
+import LR1N from "../../Images/images/laugh-red-1-none.jpg";
+import LR3N from "../../Images/images/laugh-red-3-none.jpg";
 export default function Instructions() {
+  const [featureImg, setFeatureImg] = useState(TypeEg);
+
   return (
     <InstructionsWrapper>
       <header>
         <h1 id="title">Instructions</h1>
+        <InstructLink to="/">Back to home</InstructLink>
       </header>
       <section id="feature-wrapper">
         <div id="card-features">
-          <h2>Each card as 4 features:</h2>
+          <h2>Each card has 4 features</h2>
           <FeatureList>
-            <li>Type: cool, laugh, hug</li>
-            <li>Color: yellow, blue, red</li>
-            <li>Number: 1, 2, 3</li>
-            <li>Shadow: left, right, none</li>
+            <li
+              onClick={() => {
+                setFeatureImg(TypeEg);
+              }}
+            >
+              Type <span>laugh, cool, hug</span>
+            </li>
+            <li
+              onClick={() => {
+                setFeatureImg(ColorEg);
+              }}
+            >
+              Color <span>yellow, blue, red</span>
+            </li>
+            <li
+              onClick={() => {
+                setFeatureImg(NumberEg);
+              }}
+            >
+              Number <span>1, 2, 3</span>
+            </li>
+            <li
+              onClick={() => {
+                setFeatureImg(ShadowEg);
+              }}
+            >
+              Shadow <span>left, right, none</span>
+            </li>
           </FeatureList>
         </div>
-        <div id="card-example">
-          <img src={ExampleCard} titre="Example card" alt="example card" />
-          <p>cool, yellow, 2, none</p>
-        </div>
+        {/* <div id="card-example"> */}
+        <img src={featureImg} titre="Example card" alt="example card" />
+        {/* </div> */}
       </section>
-      <section id="instructions-wrapper">
+      <section className="instructions" id="instruction1-wrapper">
         <p>
-          A 'Set' consists of three cards in which each feature is EITHER the
-          same on each card OR is different on each card. That is to say, any
-          feature in the 'Set' of three cards is either common to all three
-          cards or is different on each card.
+          A 'Set' consists of <span>three cards</span> in which{" "}
+          <span>each feature</span> is
+          <br /> EITHER
+          <br /> <span>the same on each card</span>
+          <br />
+          OR
+          <br /> <span>is different on each card.</span>
         </p>
       </section>
       <section id="good-example-wrapper">
         <div id="good-example">
-          <img
-            class="set-example"
-            src="../../Images/images/cool-yellow-2-none.jpg"
-            alt="cool-yellow-2-none"
-          />
-          <img
-            class="set-example"
-            src="../../Images/images/cool-red-2-left.jpg"
-            alt="cool-red-2-left"
-          />
-          <img
-            class="set-example"
-            src="../../Images/images/cool-blue-2-right.jpg"
-            alt="cool-blue-2-right"
-          />
+          <img className="set-example" src={CY2N} alt="cool-yellow-2-none" />
+          <img className="set-example" src={CR2L} alt="cool-red-2-left" />
+          <img className="set-example" src={CB2R} alt="cool-blue-2-right" />
         </div>
         <div>
-          <p>Explanations</p>
+          <h3>This is a set !</h3>
+          <p>All same type</p>
+          <p>All different colors</p>
+          <p>All same number</p>
+          <p>All different shadows</p>
         </div>
+      </section>
+      <section className="instructions" id="instruction2-wrapper">
+        <p>
+          That is to say,
+          <br />
+          <span>any feature</span> in the 'Set' of three cards is
+          <br />
+          EITHER
+          <br />
+          <span>common to all three cards</span>
+          <br />
+          OR
+          <br />
+          <span>is different on each card.</span>
+        </p>
       </section>
       <section id="bad-example-wrapper">
         <div id="bad-example">
-          <p>Insert example</p>
+          <img className="set-example" src={LB2N} alt="laugh-yellow-2-none" />
+          <img className="set-example" src={LR1N} alt="laugh-red-2-left" />
+          <img className="set-example" src={LR3N} alt="laugh-blue-2-right" />
         </div>
         <div>
-          <p>Explanations</p>
+          <h3>This is NOT a set !</h3>
+          <p>All same type</p>
+          <p>
+            <span>2 red and 1 blue</span>
+          </p>
+          <p>All different numbers</p>
+          <p>All same shadows</p>
         </div>
       </section>
     </InstructionsWrapper>
