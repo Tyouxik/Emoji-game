@@ -21,7 +21,7 @@ export default function Landing() {
           <Lottie options={defaultOptions} />
         </div>
         <div className="links">
-          <LandingLink to="/game">New Game</LandingLink>
+          <LandingLink to="/sologame">New Game</LandingLink>
           <LandingLink to="/instructions">Instructions</LandingLink>
         </div>
       </div>
