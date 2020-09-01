@@ -21,6 +21,9 @@ function getDeck() {
       }
     }
   }
+  for (let m = 0; m < deck.length; m++) {
+    deck[m].id = m;
+  }
   return deck;
 }
 
