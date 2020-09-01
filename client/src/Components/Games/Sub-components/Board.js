@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./Card";
 
 export default function Board(props) {
-  console.log(props.boardCards);
+  const [selectedCards, setSelectedCards] = useState([]);
+  // const [isSelected, setIsSelected] = useState(false);
+  const { boardCards } = props;
+  function selectCard(event) {
+    const targetID = event.target.id;
+    let selectedCard = boardCards.find((card) => card.id === targetID);
+    if (selectedCards.length < 3) {
+      selectedCards.push(selectedCard);
+    }
+    console.log(selectedCards);
+  }
   return (
     <div>
-      <h1>I am bored: {props.boardCards}</h1>
-      {props.boardCards.map((card, idx) => {
-        return <Card key={idx} card={card} />;
+      {(props.boardCards || []).map((card) => {
+        return (
+          <Card
+            // isSelected={isSelected}
+            selectCard={selectCard}
+            key={card.id}
+            card={card}
+          />
+        );
       })}
     </div>
   );

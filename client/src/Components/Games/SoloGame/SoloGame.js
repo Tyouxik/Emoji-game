@@ -4,8 +4,7 @@ import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
 import { shuffleCards, pick } from "../../../Game Logic/game";
 
-export default function SoloGame() {
-  // const [selectedCards, setSelectedCards] = useState([]);
+export default function SoloGame(props) {
   // //     selectedIndex = [];
   // //     discartedCards = [];
   // const [foundSets, setFoundSets] = useState(0);
@@ -35,10 +34,11 @@ export default function SoloGame() {
   } else {
     return (
       <>
-        <Timer maxMins={1} setTimeIsUp={setTimeIsUp} />
+        <Timer maxMins={10} setTimeIsUp={setTimeIsUp} />
         <div>
           <h1 id="title">Game On</h1>
         </div>
+
         <Board boardCards={boardCards} />
       </>
     );
