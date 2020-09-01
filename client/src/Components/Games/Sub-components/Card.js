@@ -6,16 +6,19 @@ export default function Card(props) {
   const { card, selectCard, selectedCards } = props;
 
   const selection = (event) => {
-    let selectedCardsId = selectedCards.map((card) => card.id);
-    selectCard(event);
-    console.log(selectedCardsId, event.target.id);
+    let selectedCardsId = selectCard(event);
+
+    console.log(selectedCards, selectedCardsId, event.target.id);
     console.log(selectedCardsId.includes(event.target.id));
     if (selectedCardsId.includes(event.target.id)) {
-      return setIsSelected(true);
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
     }
   };
   return (
     <>
+      <p>{card.id}</p>
       <CardImg
         isSelected={isSelected}
         onClick={selection}

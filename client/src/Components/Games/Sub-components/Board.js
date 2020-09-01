@@ -10,10 +10,10 @@ export default function Board(props) {
     let selectedCard = boardCards.find((card) => card.id === targetID);
     if (selectedCards.length < 3 && !selectedCards.includes(selectedCard)) {
       selectedCards.push(selectedCard);
-    } else {
+    } else if (selectedCards.includes(selectedCard)) {
       selectedCards.pop(selectedCard);
     }
-    console.log(selectedCards);
+    return selectedCards.map((card) => card.id);
   }
   return (
     <div>
