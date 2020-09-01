@@ -3,13 +3,15 @@ import Card from "./Card";
 
 export default function Board(props) {
   const [selectedCards, setSelectedCards] = useState([]);
-  // const [isSelected, setIsSelected] = useState(false);
   const { boardCards } = props;
+
   function selectCard(event) {
     const targetID = event.target.id;
     let selectedCard = boardCards.find((card) => card.id === targetID);
-    if (selectedCards.length < 3) {
+    if (selectedCards.length < 3 && !selectedCards.includes(selectedCard)) {
       selectedCards.push(selectedCard);
+    } else {
+      selectedCards.pop(selectedCard);
     }
     console.log(selectedCards);
   }
@@ -18,10 +20,10 @@ export default function Board(props) {
       {(props.boardCards || []).map((card) => {
         return (
           <Card
-            // isSelected={isSelected}
             selectCard={selectCard}
             key={card.id}
             card={card}
+            selectedCards={selectedCards}
           />
         );
       })}
