@@ -1,21 +1,11 @@
 import React, { useState } from "react";
-import NumberEg from "../../Images/images/examples/number.jpg";
-import TypeEg from "../../Images/images/examples/type.jpg";
-import ColorEg from "../../Images/images/examples/color.jpg";
-import ShadowEg from "../../Images/images/examples/shadow.jpg";
 import {
   InstructionsWrapper,
   FeatureList,
   InstructLink,
 } from "./style-instructions";
-import CY2N from "../../Images/images/cool-yellow-2-none.jpg";
-import CR2L from "../../Images/images/cool-red-2-left.jpg";
-import CB2R from "../../Images/images/cool-blue-2-right.jpg";
-import LB2N from "../../Images/images/laugh-blue-2-none.jpg";
-import LR1N from "../../Images/images/laugh-red-1-none.jpg";
-import LR3N from "../../Images/images/laugh-red-3-none.jpg";
 export default function Instructions() {
-  const [featureImg, setFeatureImg] = useState(TypeEg);
+  const [featureImg, setFeatureImg] = useState("images/examples/type.jpg");
 
   return (
     <InstructionsWrapper>
@@ -29,28 +19,28 @@ export default function Instructions() {
           <FeatureList>
             <li
               onClick={() => {
-                setFeatureImg(TypeEg);
+                setFeatureImg("images/examples/type.jpg");
               }}
             >
               Type <span>laugh, cool, hug</span>
             </li>
             <li
               onClick={() => {
-                setFeatureImg(ColorEg);
+                setFeatureImg("images/examples/color.jpg");
               }}
             >
               Color <span>yellow, blue, red</span>
             </li>
             <li
               onClick={() => {
-                setFeatureImg(NumberEg);
+                setFeatureImg("images/examples/number.jpg");
               }}
             >
               Number <span>1, 2, 3</span>
             </li>
             <li
               onClick={() => {
-                setFeatureImg(ShadowEg);
+                setFeatureImg("images/examples/shadow.jpg");
               }}
             >
               Shadow <span>left, right, none</span>
@@ -74,9 +64,21 @@ export default function Instructions() {
       </section>
       <section id="good-example-wrapper">
         <div id="good-example">
-          <img className="set-example" src={CY2N} alt="cool-yellow-2-none" />
-          <img className="set-example" src={CR2L} alt="cool-red-2-left" />
-          <img className="set-example" src={CB2R} alt="cool-blue-2-right" />
+          <img
+            className="set-example"
+            src="images/cool-yellow-2-none.jpg"
+            alt="cool-yellow-2-none"
+          />
+          <img
+            className="set-example"
+            src="images/cool-red-2-left.jpg"
+            alt="cool-red-2-left"
+          />
+          <img
+            className="set-example"
+            src="images/cool-blue-2-right.jpg"
+            alt="cool-blue-2-right"
+          />
         </div>
         <div>
           <h3>This is a set !</h3>
@@ -103,9 +105,21 @@ export default function Instructions() {
       </section>
       <section id="bad-example-wrapper">
         <div id="bad-example">
-          <img className="set-example" src={LB2N} alt="laugh-yellow-2-none" />
-          <img className="set-example" src={LR1N} alt="laugh-red-2-left" />
-          <img className="set-example" src={LR3N} alt="laugh-blue-2-right" />
+          <img
+            className="set-example"
+            src="images/laugh-blue-2-none.jpg"
+            alt="laugh-yellow-2-none"
+          />
+          <img
+            className="set-example"
+            src="images/laugh-red-1-none.jpg"
+            alt="laugh-red-1-none.jpg"
+          />
+          <img
+            className="set-example"
+            src="images/laugh-red-3-none.jpg"
+            alt="laugh-red-3-none"
+          />
         </div>
         <div>
           <h3>This is NOT a set !</h3>
