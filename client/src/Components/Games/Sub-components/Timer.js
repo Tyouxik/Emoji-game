@@ -24,7 +24,7 @@ export default function Timer(props) {
     return () => {
       clearInterval(interval);
     };
-  }, [seconds]);
+  }, [seconds, setTimeIsUp]);
 
   return <h3>Timer: {formatTime(seconds)}</h3>;
 }

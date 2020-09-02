@@ -39,6 +39,7 @@ function shuffleCards(cards) {
     cards[location1] = cards[location2];
     cards[location2] = tmp;
   }
+  return cards;
 }
 
 function pick(number, boardCards, deck) {

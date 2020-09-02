@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Card from "./Card";
 
 export default function Board(props) {
-  const [selectedCards, setSelectedCards] = useState([]);
+  const [selectedCards] = useState([]);
   const { boardCards } = props;
 
   function selectCard(event) {
@@ -17,7 +17,7 @@ export default function Board(props) {
   }
   return (
     <div>
-      {(props.boardCards || []).map((card) => {
+      {props.boardCards.map((card) => {
         return (
           <Card
             selectCard={selectCard}
