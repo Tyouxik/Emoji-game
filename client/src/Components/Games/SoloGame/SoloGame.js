@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Deck } from "../../../Game Logic/deck";
 import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
-import { shuffleCards, pick } from "../../../Game Logic/game";
+import { shuffleCards } from "../../../Game Logic/game";
 import { GameBtn } from "./style-SoloGame";
 import Card from "../Sub-components/Card";
 
@@ -22,17 +22,16 @@ export default function SoloGame(props) {
   //Add 12 cards to the board at the beginning of the game
   useEffect(() => {
     if (deck.length !== 0) {
-      let displayCards = [];
+      let initialCards = [];
       for (let i = 0; i < 12; i++) {
-        displayCards.push(deck.pop());
+        initialCards.push(deck.pop());
       }
-      setBoardCards(displayCards);
+      setBoardCards(initialCards);
     }
   }, [deck, setBoardCards]);
 
   //Add 3 cards to the board
   const add3Cards = () => {
-    console.log("I add 3 cards");
     let addedCards = [];
     if (deck.length !== 0) {
       for (let i = 0; i < 3; i++) {

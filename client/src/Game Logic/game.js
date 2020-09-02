@@ -51,52 +51,52 @@ function pick(number, boardCards, deck) {
 //   return deck.pop();
 // }
 
-// function checkIfSet(array) {
-//   if (array.length === 0) {
-//     return false;
-//   }
-//   if (array.length === 3) {
-//     let checkAllSameType =
-//       array[0].type === array[1].type && array[1].type === array[2].type;
-//     let checkAllSameColor =
-//       array[0].color === array[1].color && array[1].color === array[2].color;
-//     let checkAllSameNumber =
-//       array[0].number === array[1].number &&
-//       array[1].number === array[2].number;
-//     let checkAllSameShadow =
-//       array[0].shadow === array[1].shadow &&
-//       array[1].shadow === array[2].shadow;
-//     let checkAllDiffType =
-//       array[0].type !== array[1].type &&
-//       array[1].type !== array[2].type &&
-//       array[0].type !== array[2].type;
-//     let checkAllDiffColor =
-//       array[0].color !== array[1].color &&
-//       array[1].color !== array[2].color &&
-//       array[0].color !== array[2].color;
-//     let checkAllDiffNumber =
-//       array[0].number !== array[1].number &&
-//       array[1].number !== array[2].number &&
-//       array[0].number !== array[2].number;
-//     let checkAllDiffShadow =
-//       array[0].shadow !== array[1].shadow &&
-//       array[1].shadow !== array[2].shadow &&
-//       array[0].shadow !== array[2].shadow;
+function checkIfSet(array) {
+  if (array.length === 0) {
+    return false;
+  }
+  if (array.length === 3) {
+    let checkAllSameType =
+      array[0].type === array[1].type && array[1].type === array[2].type;
+    let checkAllSameColor =
+      array[0].color === array[1].color && array[1].color === array[2].color;
+    let checkAllSameNumber =
+      array[0].number === array[1].number &&
+      array[1].number === array[2].number;
+    let checkAllSameShadow =
+      array[0].shadow === array[1].shadow &&
+      array[1].shadow === array[2].shadow;
+    let checkAllDiffType =
+      array[0].type !== array[1].type &&
+      array[1].type !== array[2].type &&
+      array[0].type !== array[2].type;
+    let checkAllDiffColor =
+      array[0].color !== array[1].color &&
+      array[1].color !== array[2].color &&
+      array[0].color !== array[2].color;
+    let checkAllDiffNumber =
+      array[0].number !== array[1].number &&
+      array[1].number !== array[2].number &&
+      array[0].number !== array[2].number;
+    let checkAllDiffShadow =
+      array[0].shadow !== array[1].shadow &&
+      array[1].shadow !== array[2].shadow &&
+      array[0].shadow !== array[2].shadow;
 
-//     if (checkAllSameType || checkAllDiffType) {
-//       if (checkAllSameColor || checkAllDiffColor) {
-//         if (checkAllSameNumber || checkAllDiffNumber) {
-//           if (checkAllSameShadow || checkAllDiffShadow) {
-//             console.log("This is true");
-//             return true;
-//           }
-//         }
-//       }
-//     }
-//     console.log("This is false");
-//     return false;
-//   }
-// }
+    if (checkAllSameType || checkAllDiffType) {
+      if (checkAllSameColor || checkAllDiffColor) {
+        if (checkAllSameNumber || checkAllDiffNumber) {
+          if (checkAllSameShadow || checkAllDiffShadow) {
+            console.log("This is true");
+            return true;
+          }
+        }
+      }
+    }
+    console.log("This is false");
+    return false;
+  }
+}
 // function selectCard(event) {
 //   const image = event.target;
 //   const cardDiv = event.target.parentNode;
@@ -176,4 +176,23 @@ function pick(number, boardCards, deck) {
 //   console.log(this.displayedCards);
 // }
 
-export { shuffleCards, pick };
+export { shuffleCards, pick, checkIfSet };
+
+// all possible combinations
+// let zeroCards= [];
+
+// let cards = ["card1", "card2","card3", "card4","card5","card6", "card7","card8","card9","card10","card11","card12"]
+
+// const allCombinations = (cards)=>{
+//   let results = [];
+//   if(cards.length === 0) {return null};
+//   for (let i = 0; i < cards.length - 1; i++) {
+//     for (let j = i + 1; j < cards.length; j++) {
+//       for(let k=i+2;k<cards.length;k++){
+//         results.push([cards[i] ,cards[j], cards[k]]);
+//     }
+//   }
+// }
+//   return results
+// }
+// allCombinations(cards)
