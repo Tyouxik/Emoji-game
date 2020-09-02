@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { CardImg } from "./style-Card.js";
 
 export default function Card(props) {
@@ -17,15 +17,12 @@ export default function Card(props) {
     }
   };
   return (
-    <>
-      <p>{card.id}</p>
-      <CardImg
-        isSelected={isSelected}
-        onClick={selection}
-        id={card.id}
-        src={`images/${card.image}`}
-        alt={card.image}
-      />
-    </>
+    <CardImg
+      isSelected={isSelected}
+      onClick={selection}
+      id={card.id}
+      src={`images/${card.image}`}
+      alt={card.image}
+    />
   );
 }

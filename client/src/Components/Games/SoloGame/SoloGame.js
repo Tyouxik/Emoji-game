@@ -30,6 +30,18 @@ export default function SoloGame(props) {
     }
   }, [deck, setBoardCards]);
 
+  //Add 3 cards to the board
+  const add3Cards = () => {
+    console.log("I add 3 cards");
+    let addedCards = [];
+    if (deck.length !== 0) {
+      for (let i = 0; i < 3; i++) {
+        addedCards.push(deck.pop());
+      }
+    }
+    setBoardCards([...boardCards, ...addedCards]);
+  };
+
   if (!timeIsUp) {
     return (
       <>
@@ -37,6 +49,7 @@ export default function SoloGame(props) {
         <div>
           <h1 id="title">Game On</h1>
         </div>
+        <GameBtn onClick={add3Cards}>Add 3 cards</GameBtn>
         <Board boardCards={boardCards} />
       </>
     );

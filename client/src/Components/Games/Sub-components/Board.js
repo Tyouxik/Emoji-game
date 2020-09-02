@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 
 export default function Board(props) {
@@ -17,11 +17,11 @@ export default function Board(props) {
   }
   return (
     <div>
-      {props.boardCards.map((card) => {
+      {boardCards.map((card) => {
         return (
           <Card
             selectCard={selectCard}
-            key={card.id}
+            key={card.image}
             card={card}
             selectedCards={selectedCards}
           />
