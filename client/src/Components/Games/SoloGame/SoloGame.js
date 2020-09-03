@@ -59,6 +59,7 @@ export default class SoloGame extends Component {
           <Board
             selectCard={this.selectCard}
             boardCards={this.state.boardCards}
+            selectedCards={this.state.selectedCards}
           />
         </>
       );
