@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function Timer(props) {
-  const { maxMins, setTimeIsUp } = props;
+  const { maxMins, handleTimer } = props;
   const [seconds, setSeconds] = useState(maxMins * 60);
 
   function formatTime(timeInSec) {
@@ -18,13 +18,13 @@ export default function Timer(props) {
         setSeconds((seconds) => seconds - 1);
       } else {
         clearInterval(interval);
-        setTimeIsUp(true);
+        handleTimer(true);
       }
     }, 1000);
     return () => {
       clearInterval(interval);
     };
-  }, [seconds, setTimeIsUp]);
+  }, [seconds, handleTimer]);
 
   return <h3>Timer: {formatTime(seconds)}</h3>;
 }

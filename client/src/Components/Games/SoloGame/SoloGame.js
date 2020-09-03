@@ -8,8 +8,7 @@ import {
   changeSelectedCards,
 } from "../../../Game Logic/game";
 import { GameBtn } from "./style-SoloGame";
-import Card from "../Sub-components/Card";
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 
 export default class SoloGame extends Component {
   state = {
@@ -27,6 +26,11 @@ export default class SoloGame extends Component {
       boardCards: addCard(state.deck, 12),
     }));
   }
+  handleTimer = (boolean) => {
+    this.setState((state, props) => ({
+      timeIsUp: boolean,
+    }));
+  };
 
   selectCard = (id) => {
     this.setState((state, props) => ({
@@ -59,7 +63,7 @@ export default class SoloGame extends Component {
     if (!this.state.timeIsUp) {
       return (
         <>
-          <Timer maxMins={10} setTimeIsUp={this.setTimeIsUp} />
+          <Timer maxMins={10} handleTimer={this.handleTimer} />
           <div>
             <h1 id="title">Game On</h1>
           </div>
