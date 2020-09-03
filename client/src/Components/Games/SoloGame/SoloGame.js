@@ -3,9 +3,10 @@ import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
 import {
   shuffleCards,
-  pickCard,
+  removeCard,
   addCard,
   changeSelectedCards,
+  checkIfSet,
 } from "../../../Game Logic/game";
 import { GameBtn } from "./style-SoloGame";
 import React, { Component } from "react";
@@ -16,6 +17,7 @@ export default class SoloGame extends Component {
     boardCards: [],
     selectedCards: [],
     timeIsUp: false,
+    message: "",
   };
 
   componentDidMount() {
@@ -26,7 +28,7 @@ export default class SoloGame extends Component {
       boardCards: addCard(state.deck, 12),
     }));
     this.setState((state, props) => ({
-      deck: pickCard(state.deck, 12),
+      deck: removeCard(state.deck, 12),
     }));
   }
   handleTimer = (boolean) => {
@@ -43,6 +45,19 @@ export default class SoloGame extends Component {
         state.boardCards
       ),
     }));
+    this.setState((state, props) => {
+      if (state.selectedCards.length === 3) {
+        if (!checkIfSet(state.selectedCards)) {
+          {
+            return (
+              (state.selectedCards = []), (state.message = "This is not a set")
+            );
+          }
+        } else {
+          console.log("this is a set");
+        }
+      }
+    });
   };
   add3Cards = () => {
     console.log("I add 3 cards");
@@ -50,12 +65,13 @@ export default class SoloGame extends Component {
       boardCards: addCard(state.deck, 3, state.boardCards),
     }));
     this.setState((state, props) => ({
-      deck: pickCard(state.deck, 3),
+      deck: removeCard(state.deck, 3),
     }));
   };
 
   render() {
-    console.log("deck", this.state.deck, "boardCards", this.state.boardCards);
+    // console.log("deck", this.state.deck, "boardCards", this.state.boardCards);
+    console.log("selectedCards", this.state.selectedCards, this.state.message);
     if (!this.state.timeIsUp) {
       return (
         <>
@@ -63,6 +79,7 @@ export default class SoloGame extends Component {
           <div>
             <h1 id="title">Game On</h1>
           </div>
+          <p>{this.state.message}</p>
           <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn>
           <Board
             selectCard={this.selectCard}

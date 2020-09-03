@@ -42,7 +42,7 @@ function shuffleCards(cards) {
   return cards;
 }
 // Pick cards from deck to board
-function pickCard(deck, num) {
+function removeCard(deck, num) {
   return deck.slice(0, deck.length - num);
 }
 function addCard(deck, num, boardCardsState) {
@@ -54,8 +54,6 @@ function addCard(deck, num, boardCardsState) {
 function changeSelectedCards(id, selectedCardState, boardCardsState) {
   let clickedCard = boardCardsState.find((card) => card.id === id);
   let selectCards = selectedCardState.filter((card) => card.id !== id);
-  console.log(selectedCardState.includes(clickedCard));
-  console.log("clickedCard", clickedCard);
   if (
     selectedCardState.length < 3 &&
     !selectedCardState.includes(clickedCard)
@@ -79,7 +77,6 @@ function changeSelectedCards(id, selectedCardState, boardCardsState) {
 //   }
 
 //Check if 3 cards are a set
-
 function checkIfSet(array) {
   if (array.length === 0) {
     return false;
@@ -205,7 +202,7 @@ function checkIfSet(array) {
 //   console.log(this.displayedCards);
 // }
 
-export { shuffleCards, pickCard, addCard, checkIfSet, changeSelectedCards };
+export { shuffleCards, removeCard, addCard, checkIfSet, changeSelectedCards };
 
 // all possible combinations
 // let zeroCards= [];
