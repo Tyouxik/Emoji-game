@@ -47,9 +47,7 @@ function pickCard(deck, num) {
 }
 function addCard(deck, num, boardCardsState) {
   let addedCards = deck.slice(deck.length - num);
-  return boardCardsState
-    ? [...boardCardsState, ...addedCards]
-    : deck.slice(deck.length - num);
+  return [...(boardCardsState || []), ...addedCards];
 }
 
 //Select a card

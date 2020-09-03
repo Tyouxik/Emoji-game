@@ -20,10 +20,13 @@ export default class SoloGame extends Component {
 
   componentDidMount() {
     this.setState((state, props) => ({
-      deck: pickCard(shuffleCards(Deck), 12),
+      deck: shuffleCards(Deck),
     }));
     this.setState((state, props) => ({
       boardCards: addCard(state.deck, 12),
+    }));
+    this.setState((state, props) => ({
+      deck: pickCard(state.deck, 12),
     }));
   }
   handleTimer = (boolean) => {
@@ -42,24 +45,17 @@ export default class SoloGame extends Component {
     }));
   };
   add3Cards = () => {
-    this.setState((state, props) => ({
-      deck: pickCard(shuffleCards(Deck), 3),
-    }));
+    console.log("I add 3 cards");
     this.setState((state, props) => ({
       boardCards: addCard(state.deck, 3, state.boardCards),
+    }));
+    this.setState((state, props) => ({
+      deck: pickCard(state.deck, 3),
     }));
   };
 
   render() {
-    // console.log(
-    //   "deck",
-    //   this.state.deck,
-    //   "boardCards",
-    //   this.state.boardCards,
-    //   "selectedCards",
-    //   this.state.selectedCards
-    // );
-    console.log(this.state.selectedCards);
+    console.log("deck", this.state.deck, "boardCards", this.state.boardCards);
     if (!this.state.timeIsUp) {
       return (
         <>
