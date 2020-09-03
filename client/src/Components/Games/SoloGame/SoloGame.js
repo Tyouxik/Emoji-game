@@ -37,6 +37,14 @@ export default class SoloGame extends Component {
       ),
     }));
   };
+  add3Cards = () => {
+    this.setState((state, props) => ({
+      deck: pickCard(shuffleCards(Deck), 3),
+    }));
+    this.setState((state, props) => ({
+      boardCards: addCard(state.deck, 3, state.boardCards),
+    }));
+  };
 
   render() {
     // console.log(
@@ -55,7 +63,7 @@ export default class SoloGame extends Component {
           <div>
             <h1 id="title">Game On</h1>
           </div>
-          {/* <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn> */}
+          <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn>
           <Board
             selectCard={this.selectCard}
             boardCards={this.state.boardCards}

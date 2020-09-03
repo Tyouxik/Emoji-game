@@ -6,6 +6,7 @@ export default function Board(props) {
   return (
     <div>
       {boardCards.map((card) => {
+        console.log(card);
         return selectedCards.includes(card) ? (
           <Card
             isSelected={true}

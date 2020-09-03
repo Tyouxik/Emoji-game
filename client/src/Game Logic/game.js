@@ -45,8 +45,11 @@ function shuffleCards(cards) {
 function pickCard(deck, num) {
   return deck.slice(0, deck.length - num);
 }
-function addCard(deck, num) {
-  return deck.slice(deck.length - num);
+function addCard(deck, num, boardCardsState) {
+  let addedCards = deck.slice(deck.length - num);
+  return boardCardsState
+    ? [...boardCardsState, ...addedCards]
+    : deck.slice(deck.length - num);
 }
 
 //Select a card
