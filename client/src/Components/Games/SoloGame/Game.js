@@ -1,6 +1,7 @@
 import { Deck } from "../../../Game Logic/deck";
 import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
+import Score from "../Sub-components/Score";
 import {
   shuffleCards,
   removeCard,
@@ -9,14 +10,14 @@ import {
   checkIfSet,
   addSet,
   removeSet,
-  goodScores,
   checkIfSetInBoard,
 } from "../../../Game Logic/game";
-import { GameBtn } from "./style-SoloGame";
+import { GameBtn } from "./Game-style";
 import React, { Component } from "react";
 
 export default class SoloGame extends Component {
   state = {
+    game: this.props.game,
     deck: [],
     boardCards: [],
     selectedCards: [],
@@ -27,6 +28,7 @@ export default class SoloGame extends Component {
   };
 
   componentDidMount() {
+    console.log(this.state.game);
     this.setState((state, props) => ({
       deck: shuffleCards(Deck),
     }));
@@ -100,26 +102,45 @@ export default class SoloGame extends Component {
     }));
   };
 
+  giveHint = () => {
+    console.log("give me a hint");
+    console.log(this.state.setsOnBoard);
+    if (this.state.setsOnBoard.length === 0) {
+      this.setState((state, props) => ({ message: "There is no set, add" }));
+    } else if (this.state.setsOnBoard.length === 1) {
+      this.setState((state, props) => ({ message: "There is one set" }));
+    } else {
+      this.setState((state, props) => ({
+        message: `There are ${this.state.setsOnBoard.length} sets`,
+      }));
+    }
+  };
+
+  highlightSet = () => {
+    console.log("I highlight a set");
+  };
   render() {
-    //console.log("deck", this.state.deck, "boardCards", this.state.boardCards);
-    console.log(this.state.boardCards, "setsOnBoard", this.state.setsOnBoard);
-    // console.log(
-    //   "selectedCards",
-    //   this.state.selectedCards,
-    //   "foundSets",
-    //   this.state.foundSets,
-    //   this.state.message
-    // );
+    // console.log(this.state.game);
+    // console.log(this.state.boardCards, "setsOnBoard", this.state.setsOnBoard);
 
     if (!this.state.timeIsUp) {
       return (
         <>
-          <Timer maxMins={10} handleTimer={this.handleTimer} />
           <div>
-            <h1 id="title">Game On</h1>
+            <h1 id="title">{this.state.game}</h1>
           </div>
-          <p>{this.state.message}</p>
-          <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn>
+          <div id="stats">
+            <Timer maxMins={1} handleTimer={this.handleTimer} />
+            <p>Deck:{this.state.deck.length}</p>
+            <p>You found:{this.state.foundSets.length} sets</p>
+          </div>
+          <div>
+            <p>{this.state.message}</p>
+            <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn>
+            <GameBtn onClick={this.giveHint}>Hint</GameBtn>
+            <GameBtn onClick={this.highlightSet}>Find a set</GameBtn>
+          </div>
+
           <Board
             selectCard={this.selectCard}
             boardCards={this.state.boardCards}
@@ -128,7 +149,7 @@ export default class SoloGame extends Component {
         </>
       );
     } else {
-      return <h1>Time is up</h1>; //score component
+      return <Score foundSets={this.state.foundSets || []} />;
     }
   }
 }

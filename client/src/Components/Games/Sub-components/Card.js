@@ -1,5 +1,5 @@
 import React from "react";
-import { CardImg } from "./style-Card.js";
+import { CardImg } from "./Card-style.js";
 
 export default function Card(props) {
   const { card, selectCard, isSelected } = props;
