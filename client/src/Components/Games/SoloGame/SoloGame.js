@@ -7,6 +7,10 @@ import {
   addCard,
   changeSelectedCards,
   checkIfSet,
+  addSet,
+  removeSet,
+  goodScores,
+  checkIfSetInBoard,
 } from "../../../Game Logic/game";
 import { GameBtn } from "./style-SoloGame";
 import React, { Component } from "react";
@@ -16,8 +20,10 @@ export default class SoloGame extends Component {
     deck: [],
     boardCards: [],
     selectedCards: [],
+    foundSets: [],
     timeIsUp: false,
     message: "",
+    setsOnBoard: [],
   };
 
   componentDidMount() {
@@ -30,6 +36,43 @@ export default class SoloGame extends Component {
     this.setState((state, props) => ({
       deck: removeCard(state.deck, 12),
     }));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.selectedCards !== prevState.selectedCards &&
+      this.state.selectedCards.length === 3
+    ) {
+      if (!checkIfSet(this.state.selectedCards)) {
+        this.setState((state, props) => {
+          {
+            return (
+              (state.selectedCards = []), (state.message = "This is not a set")
+            );
+          }
+        });
+      } else {
+        this.setState((state, props) => ({
+          foundSets: addSet(state.selectedCards, state.foundSets),
+        }));
+        this.setState((state, props) => ({
+          boardCards: removeSet(state.selectedCards, state.boardCards),
+        }));
+        this.setState((state, props) => {
+          {
+            return (
+              (state.selectedCards = []), (state.message = "This is a set")
+            );
+          }
+        });
+      }
+    }
+    if (this.state.boardCards !== prevState.boardCards) {
+      console.log("The board has changed", this.state.boardCards);
+      this.setState((state, props) => ({
+        setsOnBoard: checkIfSetInBoard(this.state.boardCards),
+      }));
+    }
   }
   handleTimer = (boolean) => {
     this.setState((state, props) => ({
@@ -45,20 +88,8 @@ export default class SoloGame extends Component {
         state.boardCards
       ),
     }));
-    this.setState((state, props) => {
-      if (state.selectedCards.length === 3) {
-        if (!checkIfSet(state.selectedCards)) {
-          {
-            return (
-              (state.selectedCards = []), (state.message = "This is not a set")
-            );
-          }
-        } else {
-          console.log("this is a set");
-        }
-      }
-    });
   };
+
   add3Cards = () => {
     console.log("I add 3 cards");
     this.setState((state, props) => ({
@@ -70,8 +101,16 @@ export default class SoloGame extends Component {
   };
 
   render() {
-    // console.log("deck", this.state.deck, "boardCards", this.state.boardCards);
-    console.log("selectedCards", this.state.selectedCards, this.state.message);
+    //console.log("deck", this.state.deck, "boardCards", this.state.boardCards);
+    console.log(this.state.boardCards, "setsOnBoard", this.state.setsOnBoard);
+    // console.log(
+    //   "selectedCards",
+    //   this.state.selectedCards,
+    //   "foundSets",
+    //   this.state.foundSets,
+    //   this.state.message
+    // );
+
     if (!this.state.timeIsUp) {
       return (
         <>
