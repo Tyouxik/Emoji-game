@@ -12,12 +12,11 @@ import {
   removeSet,
   checkIfSetInBoard,
 } from "../../../Game Logic/game";
-import { GameBtn } from "./Game-style";
+import { GameBtn } from "./ClassicSolo-style";
 import React, { Component } from "react";
 
-export default class SoloGame extends Component {
+export default class ClassicSolo extends Component {
   state = {
-    game: this.props.game,
     deck: [],
     boardCards: [],
     selectedCards: [],
@@ -28,7 +27,6 @@ export default class SoloGame extends Component {
   };
 
   componentDidMount() {
-    console.log(this.state.game);
     this.setState((state, props) => ({
       deck: shuffleCards(Deck),
     }));
@@ -120,14 +118,11 @@ export default class SoloGame extends Component {
     console.log("I highlight a set");
   };
   render() {
-    // console.log(this.state.game);
-    // console.log(this.state.boardCards, "setsOnBoard", this.state.setsOnBoard);
-
     if (!this.state.timeIsUp) {
       return (
         <>
           <div>
-            <h1 id="title">{this.state.game}</h1>
+            <h1 id="title">Classic Solo</h1>
           </div>
           <div id="stats">
             <Timer maxMins={1} handleTimer={this.handleTimer} />
