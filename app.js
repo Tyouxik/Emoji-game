@@ -9,6 +9,9 @@ var usersRouter = require("./routes/users");
 
 var app = express();
 
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
+
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'hbs');
@@ -38,16 +41,22 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-const server = require("http").createServer(app);
-// const options = {
-//   /* ... */
-// };
-const io = require("socket.io")(server, options);
+//Configuration for Socket.io
 
 io.on("connection", (socket) => {
-  /* ... */
+  socket.on("hey", (data) => {
+    console.log("hey", data);
+  });
+  console.log("Someone new is connected");
 });
 
-// server.listen(3000);
+// io.on("initialBoard", (socket) => {
+//   console.log("Everybody sees the board");
+//   socket.on("initialCards");
+// });
+
+http.listen(4000, () => {
+  console.log("listening on port 4000");
+});
 
 module.exports = app;
