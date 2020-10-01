@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -12,9 +13,19 @@ var app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'hbs');
+mongoose
+  .set("useUnifiedTopology", true)
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/emoji-game", {
+    useNewUrlParser: true,
+  })
+  .then((x) => {
+    console.log(
+      `Connected to Mongo! Database name: "${x.connections[0].name}"`
+    );
+  })
+  .catch((err) => {
+    console.error("Error connecting to mongo", err);
+  });
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -41,20 +52,11 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-//Configuration for Socket.io
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-
 io.on("connection", (socket) => {
-  console.log("Someone new is connected");
-  socket.on("boardCards", ({ boardCards }) => {
-    io.emit("message", boardCards);
+  console.log("New user is connected");
+  socket.on("startGame", (data) => {
+    console.log(data);
   });
-});
-
-io.on("initialBoard", (socket) => {
-  console.log("Everybody sees the board");
-  socket.on("initialCards");
 });
 
 http.listen(4000, () => {
