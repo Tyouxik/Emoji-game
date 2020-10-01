@@ -1,17 +1,7 @@
-import { Deck } from "../../../Game Logic/deck";
 import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
 import Score from "../Sub-components/Score";
-import {
-  shuffleCards,
-  removeCard,
-  addCard,
-  changeSelectedCards,
-  checkIfSet,
-  addSet,
-  removeSet,
-  checkIfSetInBoard,
-} from "../../../Game Logic/game";
+
 import { GameBtn } from "./ClassicMulti-style";
 import React, { Component } from "react";
 const io = require("socket.io-client");
@@ -28,75 +18,75 @@ export default class ClassicMulti extends Component {
     setsOnBoard: [],
   };
 
-  componentDidMount() {
-    this.setState((state, props) => ({
-      deck: shuffleCards(Deck),
-    }));
-    this.setState((state, props) => ({
-      boardCards: addCard(state.deck, 12),
-    }));
-    this.setState((state, props) => ({
-      deck: removeCard(state.deck, 12),
-    }));
-    //emit board to Socket server
-  }
+  // componentDidMount() {
+  // this.setState((state, props) => ({
+  //   deck: shuffleCards(Deck),
+  // }));
+  // this.setState((state, props) => ({
+  //   boardCards: addCard(state.deck, 12),
+  // }));
+  // this.setState((state, props) => ({
+  //   deck: removeCard(state.deck, 12),
+  // }));
+  // //emit board to Socket server
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.state.selectedCards !== prevState.selectedCards &&
-      this.state.selectedCards.length === 3
-    ) {
-      if (!checkIfSet(this.state.selectedCards)) {
-        this.setState((state, props) => {
-          {
-            return (
-              (state.selectedCards = []), (state.message = "This is not a set")
-            );
-          }
-        });
-      } else {
-        this.setState((state, props) => ({
-          foundSets: addSet(state.selectedCards, state.foundSets),
-        }));
-        this.setState((state, props) => ({
-          boardCards: removeSet(state.selectedCards, state.boardCards),
-        }));
-        this.setState((state, props) => {
-          {
-            return (
-              (state.selectedCards = []), (state.message = "This is a set")
-            );
-          }
-        });
-      }
-    }
-    if (this.state.boardCards !== prevState.boardCards) {
-      console.log("The board has changed", this.state.boardCards);
-      this.setState((state, props) => ({
-        setsOnBoard: checkIfSetInBoard(this.state.boardCards),
-      }));
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (
+  //     this.state.selectedCards !== prevState.selectedCards &&
+  //     this.state.selectedCards.length === 3
+  //   ) {
+  //     if (!checkIfSet(this.state.selectedCards)) {
+  //       this.setState((state, props) => {
+  //         {
+  //           return (
+  //             (state.selectedCards = []), (state.message = "This is not a set")
+  //           );
+  //         }
+  //       });
+  //     } else {
+  //       this.setState((state, props) => ({
+  //         foundSets: addSet(state.selectedCards, state.foundSets),
+  //       }));
+  //       this.setState((state, props) => ({
+  //         boardCards: removeSet(state.selectedCards, state.boardCards),
+  //       }));
+  //       this.setState((state, props) => {
+  //         {
+  //           return (
+  //             (state.selectedCards = []), (state.message = "This is a set")
+  //           );
+  //         }
+  //       });
+  //     }
+  //   }
+  //   if (this.state.boardCards !== prevState.boardCards) {
+  //     console.log("The board has changed", this.state.boardCards);
+  //     this.setState((state, props) => ({
+  //       setsOnBoard: checkIfSetInBoard(this.state.boardCards),
+  //     }));
+  //   }
+  // }
 
-  selectCard = (id) => {
-    this.setState((state, props) => ({
-      selectedCards: changeSelectedCards(
-        id,
-        state.selectedCards,
-        state.boardCards
-      ),
-    }));
-  };
+  // selectCard = (id) => {
+  //   this.setState((state, props) => ({
+  //     selectedCards: changeSelectedCards(
+  //       id,
+  //       state.selectedCards,
+  //       state.boardCards
+  //     ),
+  //   }));
+  // };
 
-  add3Cards = () => {
-    console.log("I add 3 cards");
-    this.setState((state, props) => ({
-      boardCards: addCard(state.deck, 3, state.boardCards),
-    }));
-    this.setState((state, props) => ({
-      deck: removeCard(state.deck, 3),
-    }));
-  };
+  // add3Cards = () => {
+  //   console.log("I add 3 cards");
+  //   this.setState((state, props) => ({
+  //     boardCards: addCard(state.deck, 3, state.boardCards),
+  //   }));
+  //   this.setState((state, props) => ({
+  //     deck: removeCard(state.deck, 3),
+  //   }));
+  // };
   render() {
     return (
       <>

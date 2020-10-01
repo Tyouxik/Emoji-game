@@ -1,21 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const gameSchema = new Schema(
-  {
-    passcode: String,
-    type: {
-      type: String,
-      enum: ["classicSolo", "allCardsSolo", "classicMulti", "allCardsMulti"],
-    },
-    deck: [Object],
-    board: [Object],
-    setsOnBoard: [[Object]],
-    selectedCards: [Object],
-    foundSets: [Object],
+const gameSchema = new Schema({
+  passcode: String,
+  type: {
+    type: String,
+    enum: ["classicSolo", "allCardsSolo", "classicMulti", "allCardsMulti"],
   },
-  { timestamps: { createdAt: "created_at" } }
-);
+  deck: [Object],
+  board: [Object],
+  setsOnBoard: [[Object]],
+  selectedCards: [Object],
+  foundSets: [Object],
+  player1: { type: String, default: "Jet Set 1" },
+  player2: { type: String, default: "Jet Set 2" },
+});
 
 const Game = mongoose.model("Game", gameSchema);
 module.exports = Game;

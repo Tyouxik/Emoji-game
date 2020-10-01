@@ -156,4 +156,4 @@ const checkIfSetInBoard = (set) => {
   return goodSet;
 };
 
-export { getSetScore, checkIfSet, checkIfSetInBoard };
+module.exports = { getSetScore, checkIfSet, checkIfSetInBoard };

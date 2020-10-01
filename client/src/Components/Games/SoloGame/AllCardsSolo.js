@@ -1,15 +1,7 @@
-import { Deck } from "../../../Game Logic/deck";
 import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
 import Score from "../Sub-components/Score";
-import {
-  shuffleCards,
-  changeSelectedCards,
-  checkIfSet,
-  addSet,
-  removeSet,
-  checkIfSetInBoard,
-} from "../../../Game Logic/game";
+
 import React, { Component } from "react";
 
 export default class AllCardsSolo extends Component {
@@ -23,62 +15,62 @@ export default class AllCardsSolo extends Component {
   };
 
   componentDidMount() {
-    this.setState((state, props) => ({
-      boardCards: shuffleCards(Deck),
-    }));
+    // this.setState((state, props) => ({
+    //   boardCards: shuffleCards(Deck),
+    // }));
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.state.selectedCards !== prevState.selectedCards &&
-      this.state.selectedCards.length === 3
-    ) {
-      if (!checkIfSet(this.state.selectedCards)) {
-        this.setState((state, props) => {
-          {
-            return (
-              (state.selectedCards = []), (state.message = "This is not a set")
-            );
-          }
-        });
-      } else {
-        this.setState((state, props) => ({
-          foundSets: addSet(state.selectedCards, state.foundSets),
-        }));
-        this.setState((state, props) => ({
-          boardCards: removeSet(state.selectedCards, state.boardCards),
-        }));
-        this.setState((state, props) => {
-          {
-            return (
-              (state.selectedCards = []), (state.message = "This is a set")
-            );
-          }
-        });
-      }
-    }
-    if (this.state.boardCards !== prevState.boardCards) {
-      console.log("The board has changed", this.state.boardCards);
-      this.setState((state, props) => ({
-        setsOnBoard: checkIfSetInBoard(this.state.boardCards),
-      }));
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (
+  //     this.state.selectedCards !== prevState.selectedCards &&
+  //     this.state.selectedCards.length === 3
+  //   ) {
+  //     if (!checkIfSet(this.state.selectedCards)) {
+  //       this.setState((state, props) => {
+  //         {
+  //           return (
+  //             (state.selectedCards = []), (state.message = "This is not a set")
+  //           );
+  //         }
+  //       });
+  //     } else {
+  //       this.setState((state, props) => ({
+  //         foundSets: addSet(state.selectedCards, state.foundSets),
+  //       }));
+  //       this.setState((state, props) => ({
+  //         boardCards: removeSet(state.selectedCards, state.boardCards),
+  //       }));
+  //       this.setState((state, props) => {
+  //         {
+  //           return (
+  //             (state.selectedCards = []), (state.message = "This is a set")
+  //           );
+  //         }
+  //       });
+  //     }
+  //   }
+  //   if (this.state.boardCards !== prevState.boardCards) {
+  //     console.log("The board has changed", this.state.boardCards);
+  //     this.setState((state, props) => ({
+  //       setsOnBoard: checkIfSetInBoard(this.state.boardCards),
+  //     }));
+  //   }
+  // }
   handleTimer = (boolean) => {
     this.setState((state, props) => ({
       timeIsUp: boolean,
     }));
   };
 
-  selectCard = (id) => {
-    this.setState((state, props) => ({
-      selectedCards: changeSelectedCards(
-        id,
-        state.selectedCards,
-        state.boardCards
-      ),
-    }));
-  };
+  // selectCard = (id) => {
+  //   this.setState((state, props) => ({
+  //     selectedCards: changeSelectedCards(
+  //       id,
+  //       state.selectedCards,
+  //       state.boardCards
+  //     ),
+  //   }));
+  // };
   render() {
     if (!this.state.timeIsUp) {
       return (

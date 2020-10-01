@@ -1,14 +1,12 @@
-// Shuffle cards
-
-function shuffleCards(cardArray) {
-  for (let i = 0; i < 1400; i++) {
-    let location1 = Math.floor(Math.random() * cardArray.length);
-    let location2 = Math.floor(Math.random() * cardArray.length);
-    let tmp = cardArray[location1];
-    cardArray[location1] = cardArray[location2];
-    cardArray[location2] = tmp;
+//Generate passcode for newGame
+function generatePasscode() {
+  var length = 5,
+    charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    retVal = "";
+  for (var i = 0, n = charset.length; i < length; ++i) {
+    retVal += charset.charAt(Math.floor(Math.random() * n));
   }
-  return cardArray;
+  return retVal;
 }
 
 // Pick cards from deck to board
@@ -47,12 +45,17 @@ function removeSet(selectedCards, boardCards) {
 }
 
 //Find a set on the board
-
-export {
-  shuffleCards,
+module.exports = {
+  generatePasscode,
   removeCard,
   addCard,
-  changeSelectedCards,
-  addSet,
-  removeSet,
 };
+
+// {
+//   generatePasscode,
+//   removeCard,
+//   addCard,
+//   changeSelectedCards,
+//   addSet,
+//   removeSet,
+// };

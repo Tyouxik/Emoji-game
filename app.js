@@ -4,10 +4,18 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
-
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-
+const {
+  generatePasscode,
+  removeCard,
+  addCard,
+} = require("./public/javascripts/game");
+const { deck, shuffleCards } = require("./public/javascripts/deck");
+const {
+  getSetScore,
+  checkIfSet,
+  checkIfSetInBoard,
+} = require("./public/javascripts/score");
+const Game = require("./models/Game");
 var app = express();
 
 const http = require("http").createServer(app);
@@ -33,9 +41,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -55,7 +60,36 @@ app.use(function (err, req, res, next) {
 io.on("connection", (socket) => {
   console.log("New user is connected");
   socket.on("startGame", (data) => {
-    console.log(data);
+    //generate passcode
+    let passcode = generatePasscode();
+    //retrieve type : data.type
+    let type = data.type;
+    //generate a shuffled Deck
+    let newDeck = shuffleCards(deck);
+    // pick the 3 cards to board
+    let board = addCard(newDeck, 12);
+    //remove 3 card from deck
+    newDeck = removeCard(newDeck, 12);
+    //calculate the sets available on board
+    let setsOnBoard = checkIfSetInBoard(board);
+    //console.log(setsInBoard);
+    //if available, retrieve player id(for now socket id)
+    let userId = data.player;
+    console.log(userId);
+    //create a game with previous info
+    Game.create({
+      passcode,
+      type,
+      deck: newDeck,
+      board,
+      setsOnBoard,
+      player1: userId,
+    })
+      .then((newGame) => {
+        console.log("this game is in the database", newGame);
+      })
+      .catch((err) => console.log(err));
+    //send game to client
   });
 });
 

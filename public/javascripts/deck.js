@@ -46,5 +46,20 @@ const getScore = (set) => {
   });
 };
 deck = getScore(deck);
-console.log(deck);
-export { deck };
+// Shuffle cards
+
+function shuffleCards(cardArray) {
+  for (let i = 0; i < 1400; i++) {
+    let location1 = Math.floor(Math.random() * cardArray.length);
+    let location2 = Math.floor(Math.random() * cardArray.length);
+    let tmp = cardArray[location1];
+    cardArray[location1] = cardArray[location2];
+    cardArray[location2] = tmp;
+  }
+  return cardArray;
+}
+
+module.exports = {
+  deck,
+  shuffleCards,
+};
