@@ -1,25 +1,19 @@
-import Timer from "../Sub-components/Timer";
+// import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
 import Score from "../Sub-components/Score";
 
-import { GameBtn } from "./ClassicSolo-style";
+// import { GameBtn } from "./ClassicSolo-style";
 import React, { Component } from "react";
 const io = require("socket.io-client");
 const socket = io("http://localhost:4000");
 
 //Event emiter
 
-//Event Listener
-socket.on("connect", () => {
-  console.log(socket.id);
-  //Catch the server message "startGame"
-});
-
 export default class ClassicSolo extends Component {
   state = {
-    gameId: "",
+    _id: "",
     deck: [],
-    boardCards: [],
+    board: [],
     selectedCards: [],
     foundSets: [],
     timeIsUp: false,
@@ -30,57 +24,17 @@ export default class ClassicSolo extends Component {
   componentDidMount() {
     socket.on("connect", () => {
       console.log(socket.id);
-      socket.emit("startGame", { type: "classicSolo", player: socket.id });
+      socket.emit("createGame", { type: "classicSolo", player: socket.id });
       //Catch the server message "startGame"
-    });
-    console.log("ClassicSolo did mount");
 
-    // this.setState((state, props) => ({
-    //   deck: shuffleCards(Deck),
-    // }));
-    // this.setState((state, props) => ({
-    //   boardCards: addCard(state.deck, 12),
-    // }));
-    // this.setState((state, props) => ({
-    //   deck: removeCard(state.deck, 12),
-    // }));
+      socket.on("newGame", (data) => {
+        this.setState(data.newGame);
+      });
+    });
   }
 
   // componentDidUpdate(prevProps, prevState) {
-  //   if (
-  //     this.state.selectedCards !== prevState.selectedCards &&
-  //     this.state.selectedCards.length === 3
-  //   ) {
-  //     if (!checkIfSet(this.state.selectedCards)) {
-  //       this.setState((state, props) => {
-  //         {
-  //           return (
-  //             (state.selectedCards = []), (state.message = "This is not a set")
-  //           );
-  //         }
-  //       });
-  //     } else {
-  //       this.setState((state, props) => ({
-  //         foundSets: addSet(state.selectedCards, state.foundSets),
-  //       }));
-  //       this.setState((state, props) => ({
-  //         boardCards: removeSet(state.selectedCards, state.boardCards),
-  //       }));
-  //       this.setState((state, props) => {
-  //         {
-  //           return (
-  //             (state.selectedCards = []), (state.message = "This is a set")
-  //           );
-  //         }
-  //       });
-  //     }
-  //   }
-  //   if (this.state.boardCards !== prevState.boardCards) {
-  //     console.log("The board has changed", this.state.boardCards);
-  //     this.setState((state, props) => ({
-  //       setsOnBoard: checkIfSetInBoard(this.state.boardCards),
-  //     }));
-  //   }
+
   // }
   // handleTimer = (boolean) => {
   //   this.setState((state, props) => ({
@@ -88,15 +42,16 @@ export default class ClassicSolo extends Component {
   //   }));
   // };
 
-  // selectCard = (id) => {
-  //   this.setState((state, props) => ({
-  //     selectedCards: changeSelectedCards(
-  //       id,
-  //       state.selectedCards,
-  //       state.boardCards
-  //     ),
-  //   }));
-  // };
+  selectCard = (id) => {
+    socket.emit("clickedCard", {
+      gameId: this.state._id,
+      player: this.state.player1,
+      cardId: id,
+    });
+    socket.on("selectedCards", (cards) => {
+      this.setState({ selectedCards: cards.selectedCards });
+    });
+  };
 
   // add3Cards = () => {
   //   console.log("I add 3 cards");
@@ -125,6 +80,7 @@ export default class ClassicSolo extends Component {
   // highlightSet = () => {
   //   console.log("I highlight a set");
   // };
+
   render() {
     if (!this.state.timeIsUp) {
       return (
@@ -146,8 +102,9 @@ export default class ClassicSolo extends Component {
 
           <Board
             selectCard={this.selectCard}
-            boardCards={this.state.boardCards}
+            board={this.state.board}
             selectedCards={this.state.selectedCards}
+            setsOnBoard={this.state.setsOnBoard}
           />
         </>
       );

@@ -23,6 +23,7 @@ const io = require("socket.io")(http);
 
 mongoose
   .set("useUnifiedTopology", true)
+  .set("useFindAndModify", false)
   .connect(process.env.MONGODB_URI || "mongodb://localhost/emoji-game", {
     useNewUrlParser: true,
   })
@@ -59,7 +60,7 @@ app.use(function (err, req, res, next) {
 
 io.on("connection", (socket) => {
   console.log("New user is connected");
-  socket.on("startGame", (data) => {
+  socket.on("createGame", (data) => {
     //generate passcode
     let passcode = generatePasscode();
     //retrieve type : data.type
@@ -75,7 +76,6 @@ io.on("connection", (socket) => {
     //console.log(setsInBoard);
     //if available, retrieve player id(for now socket id)
     let userId = data.player;
-    console.log(userId);
     //create a game with previous info
     Game.create({
       passcode,
@@ -86,15 +86,69 @@ io.on("connection", (socket) => {
       player1: userId,
     })
       .then((newGame) => {
-        console.log("this game is in the database", newGame);
+        console.log("New game created");
+        io.emit("newGame", { newGame });
       })
       .catch((err) => console.log(err));
     //send game to client
   });
+  socket.on("clickedCard", async (data) => {
+    try {
+      const clickedCard = { player: data.player, cardId: data.cardId };
+      let currentGame = await Game.findById(data.gameId);
+      let found = await currentGame.selectedCards.filter((card) => {
+        return (
+          card.cardId == clickedCard.cardId && card.player == clickedCard.player
+        );
+      });
+
+      if (found.length === 0 && currentGame.selectedCards.length < 3) {
+        currentGame = await Game.findByIdAndUpdate(
+          data.gameId,
+          {
+            $push: { selectedCards: clickedCard },
+          },
+          { new: true }
+        );
+      } else if (found.length !== 0) {
+        currentGame = await Game.findByIdAndUpdate(
+          data.gameId,
+          {
+            $pull: { selectedCards: clickedCard },
+          },
+          { new: true }
+        );
+      }
+      let selectedCards = currentGame.selectedCards;
+
+      io.emit("selectedCards", { selectedCards });
+      console.log("after update", currentGame.selectedCards);
+    } catch (err) {
+      console.log(err);
+    }
+
+    //       .then((game) => console.log("a card is added", game.selectedCards))
+    //       .catch((err) => console.log(err));
+    //   } else if (game.selectedCards.includes(clickedCard)) {
+    //     Game.findByIdAndUpdate(
+    //       data.gameId,
+    //       {
+    //         $pul: { selectedCards: clickedCard },
+    //       },
+    //       { new: true }
+    //     )
+    //       .then((game) => console.log("a card is pulled", game.selectedCards))
+    //       .catch((err) => console.log(err));
+    //   } else {
+    //     console.log("selectedcards stay the same");
+    //   }
+    // })
+    // .catch((err) => console.log(err));
+  });
 });
 
 http.listen(4000, () => {
-  console.log("listening on port 4000");
+  console.log("listening on port 3000");
 });
 
 module.exports = app;

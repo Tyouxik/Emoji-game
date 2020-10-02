@@ -21,9 +21,9 @@ function createDeck() {
       }
     }
   }
-  // for (let m = 0; m < deck.length; m++) {
-  //   deck[m].id = m.toString();
-  // }
+  for (let m = 0; m < deck.length; m++) {
+    deck[m].id = m.toString();
+  }
   return deck;
 }
 let deck = createDeck();
