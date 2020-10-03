@@ -126,24 +126,6 @@ io.on("connection", (socket) => {
     } catch (err) {
       console.log(err);
     }
-
-    //       .then((game) => console.log("a card is added", game.selectedCards))
-    //       .catch((err) => console.log(err));
-    //   } else if (game.selectedCards.includes(clickedCard)) {
-    //     Game.findByIdAndUpdate(
-    //       data.gameId,
-    //       {
-    //         $pul: { selectedCards: clickedCard },
-    //       },
-    //       { new: true }
-    //     )
-    //       .then((game) => console.log("a card is pulled", game.selectedCards))
-    //       .catch((err) => console.log(err));
-    //   } else {
-    //     console.log("selectedcards stay the same");
-    //   }
-    // })
-    // .catch((err) => console.log(err));
   });
 });
 
