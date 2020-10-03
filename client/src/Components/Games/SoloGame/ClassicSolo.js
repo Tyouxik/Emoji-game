@@ -1,6 +1,7 @@
 // import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
 import Score from "../Sub-components/Score";
+import { GameBtn } from "./ClassicSolo-style";
 
 // import { GameBtn } from "./ClassicSolo-style";
 import React, { Component } from "react";
@@ -19,6 +20,7 @@ export default class ClassicSolo extends Component {
     timeIsUp: false,
     message: "",
     setsOnBoard: [],
+    showHint: false,
   };
 
   componentDidMount() {
@@ -63,23 +65,11 @@ export default class ClassicSolo extends Component {
   //   }));
   // };
 
-  // giveHint = () => {
-  //   console.log("give me a hint");
-  //   console.log(this.state.setsOnBoard);
-  //   if (this.state.setsOnBoard.length === 0) {
-  //     this.setState((state, props) => ({ message: "There is no set, add" }));
-  //   } else if (this.state.setsOnBoard.length === 1) {
-  //     this.setState((state, props) => ({ message: "There is one set" }));
-  //   } else {
-  //     this.setState((state, props) => ({
-  //       message: `There are ${this.state.setsOnBoard.length} sets`,
-  //     }));
-  //   }
-  // };
-
-  // highlightSet = () => {
-  //   console.log("I highlight a set");
-  // };
+  giveHint = () => {
+    this.setState((state, props) => {
+      return { showHint: !state.showHint };
+    });
+  };
 
   render() {
     if (!this.state.timeIsUp) {
@@ -95,9 +85,9 @@ export default class ClassicSolo extends Component {
           </div>
           <div>
             <p>{this.state.message}</p>
-            {/* <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn>
+            {/* <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn> */}
             <GameBtn onClick={this.giveHint}>Hint</GameBtn>
-            <GameBtn onClick={this.highlightSet}>Find a set</GameBtn> */}
+            {/* <GameBtn onClick={this.highlightSet}>Find a set</GameBtn> */}
           </div>
 
           <Board
@@ -105,6 +95,7 @@ export default class ClassicSolo extends Component {
             board={this.state.board}
             selectedCards={this.state.selectedCards}
             setsOnBoard={this.state.setsOnBoard}
+            showHint={this.state.showHint}
           />
         </>
       );
