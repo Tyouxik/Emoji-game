@@ -12,6 +12,7 @@ const socket = io("http://localhost:4000");
 
 export default class ClassicSolo extends Component {
   state = {
+    socket: socket,
     _id: "",
     deck: [],
     board: [],
@@ -24,19 +25,18 @@ export default class ClassicSolo extends Component {
   };
 
   componentDidMount() {
-    socket.on("connect", () => {
-      console.log(socket.id);
-      socket.emit("createGame", { type: "classicSolo", player: socket.id });
-      //Catch the server message "startGame"
+    console.log("I did mount with board", this.state.board);
 
-      socket.on("newGame", (data) => {
-        this.setState(data.newGame);
-      });
+    this.state.socket.open();
+    this.state.socket.emit("createGame", {
+      type: "classicSolo",
+      player: socket.id,
+    });
+    //Catch the server message "startGame"
+    this.state.socket.on("newGame", (data) => {
+      this.setState(data.newGame);
     });
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-
   // }
   // handleTimer = (boolean) => {
   //   this.setState((state, props) => ({
@@ -55,21 +55,21 @@ export default class ClassicSolo extends Component {
     });
   };
 
-  // add3Cards = () => {
-  //   console.log("I add 3 cards");
-  //   this.setState((state, props) => ({
-  //     boardCards: addCard(state.deck, 3, state.boardCards),
-  //   }));
-  //   this.setState((state, props) => ({
-  //     deck: removeCard(state.deck, 3),
-  //   }));
-  // };
-
   giveHint = () => {
     this.setState((state, props) => {
       return { showHint: !state.showHint };
     });
+
+    setTimeout(() => {
+      this.setState((state, props) => {
+        return { showHint: !state.showHint };
+      });
+    }, 3000);
   };
+
+  // componentWillUnmount() {
+  //   this.state.socket.close();
+  // }
 
   render() {
     if (!this.state.timeIsUp) {
@@ -80,13 +80,17 @@ export default class ClassicSolo extends Component {
           </div>
           <div id="stats">
             {/* <Timer maxMins={1} handleTimer={this.handleTimer} />
-            <p>Deck:{this.state.deck.length}</p>
-            <p>You found:{this.state.foundSets.length} sets</p> */}
+                <p>Deck:{this.state.deck.length}</p>
+                <p>You found:{this.state.foundSets.length} sets</p> */}
           </div>
           <div>
             <p>{this.state.message}</p>
             {/* <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn> */}
-            <GameBtn onClick={this.giveHint}>Hint</GameBtn>
+
+            <GameBtn disabled={this.state.showHint} onClick={this.giveHint}>
+              Hint
+            </GameBtn>
+
             {/* <GameBtn onClick={this.highlightSet}>Find a set</GameBtn> */}
           </div>
 
