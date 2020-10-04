@@ -1,12 +1,12 @@
-import Timer from "../Sub-components/Timer";
+// import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
-import Score from "../Sub-components/Score";
+// import Score from "../Sub-components/Score";
 
 import { GameBtn } from "./ClassicMulti-style";
 import React, { Component } from "react";
-const io = require("socket.io-client");
+// const io = require("socket.io-client");
 
-const socket = io();
+// const socket = io();
 
 export default class ClassicMulti extends Component {
   state = {

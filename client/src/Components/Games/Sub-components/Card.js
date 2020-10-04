@@ -1,6 +1,5 @@
 import React from "react";
 import { CardImg } from "./Card-style.js";
-import Animista, { AnimistaTypes } from "react-animista";
 
 export default function Card(props) {
   const { card, selectCard, isSelected, showHint, isHint } = props;

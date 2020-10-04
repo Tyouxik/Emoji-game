@@ -5,10 +5,9 @@ import Animista, { AnimistaTypes } from "react-animista";
 export default function Board(props) {
   const { board, selectCard, selectedCards, setsOnBoard } = props;
   let selectedCardId = selectedCards.map((card) => card.cardId);
-  console.log(setsOnBoard);
   let hintCardId =
     setsOnBoard.length > 0 ? setsOnBoard[0].map((card) => card.id) : [];
-  console.log("hintCardId", hintCardId);
+
   let cards = board.map((card) => {
     let selected = selectedCardId.includes(card.id);
     let hint = hintCardId.includes(card.id);

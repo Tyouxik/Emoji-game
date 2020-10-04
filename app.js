@@ -86,7 +86,7 @@ io.on("connection", (socket) => {
       player1: userId,
     })
       .then((newGame) => {
-        console.log("New game created");
+        console.log("New game created", newGame.deck.length);
         io.emit("newGame", { newGame });
       })
       .catch((err) => console.log(err));
@@ -122,7 +122,6 @@ io.on("connection", (socket) => {
       let selectedCards = currentGame.selectedCards;
 
       io.emit("selectedCards", { selectedCards });
-      console.log("after update", currentGame.selectedCards);
     } catch (err) {
       console.log(err);
     }
