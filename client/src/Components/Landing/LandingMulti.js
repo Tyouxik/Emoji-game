@@ -21,10 +21,8 @@ export default function Landing() {
           <Lottie options={defaultOptions} />
         </div>
         <div className="links">
-          <LandingLink to="/classicsolo">Classic Solo</LandingLink>
-          <LandingLink to="/allcardssolo">All Cards Solo</LandingLink>
-          <LandingLink to="/instructions">Instructions</LandingLink>
-          <LandingLink to="/landingmulti">Classic Multi</LandingLink>
+          <LandingLink to="/classicmulti">Create a game</LandingLink>
+          <LandingLink to="/classicmulti">Join a game</LandingLink>
         </div>
       </div>
     </LandingWrapper>

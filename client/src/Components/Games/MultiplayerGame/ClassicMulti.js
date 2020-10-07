@@ -93,7 +93,7 @@ export default class ClassicMulti extends Component {
         <div>
           <h1 id="title">Classic Multi</h1>
         </div>
-        <div id="stats">
+        {/* <div id="stats">
           <p>Deck:{this.state.deck.length}</p>
           <p>You found:{this.state.foundSets.length} sets</p>
         </div>
@@ -106,7 +106,7 @@ export default class ClassicMulti extends Component {
           selectCard={this.selectCard}
           boardCards={this.state.boardCards}
           selectedCards={this.state.selectedCards}
-        />
+        /> */}
       </>
     );
   }
