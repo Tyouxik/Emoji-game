@@ -60,7 +60,7 @@ app.use(function (err, req, res, next) {
 
 io.on("connection", async (socket) => {
   console.log("New user is connected");
-  socket.on("createGame", (data) => {
+  socket.on("createGame", async (data) => {
     //generate passcode
     let passcode = generatePasscode();
     //retrieve type : data.type
@@ -69,8 +69,6 @@ io.on("connection", async (socket) => {
     let newDeck = shuffleCards(deck);
     // pick the 3 cards to board
     let board = addCard(newDeck, 12);
-    //remove 3 card from deck
-    newDeck = removeCard(newDeck, 12);
     //calculate the sets available on board
     let setsOnBoard = checkIfSetInBoard(board) || [];
     //console.log(setsInBoard);
@@ -78,19 +76,28 @@ io.on("connection", async (socket) => {
     let userId = data.socketId;
     //create a game with previous info
     socket.join(passcode);
-    Game.create({
-      passcode,
-      type,
-      deck: newDeck,
-      board,
-      setsOnBoard,
-      player1: userId,
-    })
-      .then((newGame) => {
-        console.log("New game created", newGame.deck.length);
-        io.to(passcode).emit("newGame", { newGame });
-      })
-      .catch((err) => console.log(err));
+    let newGame;
+    if (data.type.toLowerCase().includes("classic")) {
+      //remove 3 card from deck
+      newDeck = removeCard(newDeck, 12);
+      newGame = await Game.create({
+        passcode,
+        type,
+        deck: newDeck,
+        board,
+        setsOnBoard,
+        player1: userId,
+      });
+    } else if (data.type.toLowerCase().includes("allcards")) {
+      newGame = await Game.create({
+        passcode,
+        type,
+        board: newDeck,
+        setsOnBoard,
+        player1: userId,
+      });
+    }
+    io.to(passcode).emit("newGame", { newGame });
     //send game to client
   });
 

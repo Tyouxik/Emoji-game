@@ -5,9 +5,13 @@ import Animista, { AnimistaTypes } from "react-animista";
 export default function Board(props) {
   const { board, selectCard, selectedCards, setsOnBoard } = props;
   let selectedCardId = selectedCards.map((card) => card.cardId);
-  let randomSet = Math.floor(Math.random() * setsOnBoard.length);
+  let randomSet = setsOnBoard
+    ? Math.floor(Math.random() * setsOnBoard.length)
+    : 0;
   let hintCardId =
-    setsOnBoard.length > 0 ? setsOnBoard[randomSet].map((card) => card.id) : [];
+    setsOnBoard && setsOnBoard.length > 0
+      ? setsOnBoard[randomSet].map((card) => card.id)
+      : [];
 
   let cards = board.map((card) => {
     let selected = selectedCardId.includes(card.id);

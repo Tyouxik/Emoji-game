@@ -1,77 +1,105 @@
-import Timer from "../Sub-components/Timer";
+// import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
 import Score from "../Sub-components/Score";
+import Timer from "../Sub-components/Timer";
+import { GameBtn } from "./ClassicSolo-style";
 
+// import { GameBtn } from "./ClassicSolo-style";
 import React, { Component } from "react";
+const io = require("socket.io-client");
+const socket = io("http://localhost:4000");
+
+//Event emiter
 
 export default class AllCardsSolo extends Component {
   state = {
-    boardCards: [],
+    socket: socket,
+    type: "allCardsSolo",
+    passcode: "",
+    _id: "",
+    board: [],
     selectedCards: [],
     foundSets: [],
     timeIsUp: false,
     message: "",
-    setsOnBoard: [],
   };
 
   componentDidMount() {
-    // this.setState((state, props) => ({
-    //   boardCards: shuffleCards(Deck),
-    // }));
+    this.state.socket.open();
+    this.state.socket.emit("createGame", {
+      type: this.state.type,
+      socketId: socket.id,
+    });
+    this.state.socket.on("newGame", (data) => {
+      console.log(data.newGame);
+      this.setState(data.newGame);
+    });
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (
-  //     this.state.selectedCards !== prevState.selectedCards &&
-  //     this.state.selectedCards.length === 3
-  //   ) {
-  //     if (!checkIfSet(this.state.selectedCards)) {
-  //       this.setState((state, props) => {
-  //         {
-  //           return (
-  //             (state.selectedCards = []), (state.message = "This is not a set")
-  //           );
-  //         }
-  //       });
-  //     } else {
-  //       this.setState((state, props) => ({
-  //         foundSets: addSet(state.selectedCards, state.foundSets),
-  //       }));
-  //       this.setState((state, props) => ({
-  //         boardCards: removeSet(state.selectedCards, state.boardCards),
-  //       }));
-  //       this.setState((state, props) => {
-  //         {
-  //           return (
-  //             (state.selectedCards = []), (state.message = "This is a set")
-  //           );
-  //         }
-  //       });
-  //     }
-  //   }
-  //   if (this.state.boardCards !== prevState.boardCards) {
-  //     console.log("The board has changed", this.state.boardCards);
-  //     this.setState((state, props) => ({
-  //       setsOnBoard: checkIfSetInBoard(this.state.boardCards),
-  //     }));
-  //   }
-  // }
   handleTimer = (boolean) => {
     this.setState((state, props) => ({
       timeIsUp: boolean,
     }));
   };
 
-  // selectCard = (id) => {
-  //   this.setState((state, props) => ({
-  //     selectedCards: changeSelectedCards(
-  //       id,
-  //       state.selectedCards,
-  //       state.boardCards
-  //     ),
-  //   }));
-  // };
+  selectCard = (id) => {
+    socket.emit("clickedCard", {
+      gameId: this.state._id,
+      player: this.state.player1,
+      cardId: id,
+    });
+    socket.on("selectedCards", (cards) => {
+      this.setState({ selectedCards: cards.selectedCards });
+    });
+    if (this.state.selectedCards.length === 3) {
+      setTimeout(() => {});
+    }
+  };
+
+  // componentWillUnmount() {
+  //   this.state.socket.close();
+  // }
+
+  add3Cards = () => {
+    this.state.socket.emit("add3cards", {
+      gameId: this.state._id,
+      numOfCards: 3,
+    });
+    this.state.socket.on("added3cards", (data) => {
+      this.setState(data);
+    });
+  };
+  checkSet = () => {
+    console.log("I am checking the set");
+    this.state.socket.emit("checkIfSet", {
+      selectedCards: this.state.selectedCards,
+      board: this.state.board,
+      gameId: this.state._id,
+      foundSets: this.state.foundSets,
+      player: this.state._id,
+    });
+    this.state.socket.on("setChecked", (data) => {
+      let { updatedGame, message } = data;
+      console.log("this is updatedGame", updatedGame);
+      const { setsOnBoard, selectedCards, foundSets, board } = updatedGame;
+      console.log(
+        "setsOnBoard",
+        setsOnBoard,
+        "selectedCards",
+        selectedCards,
+        "foundSets",
+        foundSets,
+        "board",
+        board
+      );
+      this.setState({ setsOnBoard, selectedCards, foundSets, board });
+      this.setState({ message });
+    });
+  };
+
   render() {
+    console.log("setsonboard", this.state.setsOnBoard);
+
     if (!this.state.timeIsUp) {
       return (
         <>
@@ -79,8 +107,8 @@ export default class AllCardsSolo extends Component {
             <h1 id="title">All Cards Solo</h1>
           </div>
           <div id="stats">
-            <Timer maxMins={10} handleTimer={this.handleTimer} />
-            <p>Remaining cards:{this.state.boardCards.length}</p>
+            <Timer maxMins={3} handleTimer={this.handleTimer} />
+            <p>Deck:{this.state.board.length}</p>
             <p>You found:{this.state.foundSets.length} sets</p>
           </div>
           <div>
@@ -89,9 +117,17 @@ export default class AllCardsSolo extends Component {
 
           <Board
             selectCard={this.selectCard}
-            boardCards={this.state.boardCards}
+            board={this.state.board}
             selectedCards={this.state.selectedCards}
+            setsOnBoard={this.state.setsOnBoard}
+            showHint={this.state.showHint}
           />
+          <GameBtn
+            onClick={this.checkSet}
+            disabled={this.state.selectedCards.length !== 3}
+          >
+            SET!
+          </GameBtn>
         </>
       );
     } else {
