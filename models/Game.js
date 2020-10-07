@@ -11,7 +11,7 @@ const gameSchema = new Schema({
   board: [Object],
   setsOnBoard: [[Object]],
   selectedCards: Array,
-  foundSets: [{}],
+  foundSets: [Object],
   player1: { type: String, default: "Jet Set 1" },
   player2: { type: String, default: "Jet Set 2" },
 });
