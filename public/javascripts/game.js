@@ -49,6 +49,7 @@ module.exports = {
   generatePasscode,
   removeCard,
   addCard,
+  addSet,
 };
 
 // {
