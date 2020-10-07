@@ -131,28 +131,39 @@ const checkIfSetInBoard = (set) => {
   let redCards = set.filter((card) => card.color === "red");
   let blueCards = set.filter((card) => card.color === "blue");
   let goodSet = [];
+
   // Find all same color sets
-  allCombo(yellowCards).forEach((set) => {
-    if (checkIfSet(set)) {
-      goodSet.push(set);
-    }
-  });
-  allCombo(redCards).forEach((set) => {
-    if (checkIfSet(set)) {
-      goodSet.push(set);
-    }
-  });
-  allCombo(blueCards).forEach((set) => {
-    if (checkIfSet(set)) {
-      goodSet.push(set);
-    }
-  });
+  if (allCombo(yellowCards)) {
+    allCombo(yellowCards).forEach((set) => {
+      if (checkIfSet(set)) {
+        goodSet.push(set);
+      }
+    });
+  }
+  if (allCombo(redCards)) {
+    allCombo(redCards).forEach((set) => {
+      if (checkIfSet(set)) {
+        goodSet.push(set);
+      }
+    });
+  }
+  if (allCombo(blueCards)) {
+    allCombo(blueCards).forEach((set) => {
+      if (checkIfSet(set)) {
+        goodSet.push(set);
+      }
+    });
+  }
+
   const allDiffColor = allDiffCombo(yellowCards, redCards, blueCards);
-  allDiffColor.forEach((set) => {
-    if (checkIfSet(set)) {
-      goodSet.push(set);
-    }
-  });
+  if (allDiffColor) {
+    allDiffColor.forEach((set) => {
+      if (checkIfSet(set)) {
+        goodSet.push(set);
+      }
+    });
+  }
+
   return goodSet;
 };
 
