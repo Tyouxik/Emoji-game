@@ -58,7 +58,7 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   console.log("New user is connected");
   socket.on("createGame", (data) => {
     //generate passcode
@@ -72,11 +72,12 @@ io.on("connection", (socket) => {
     //remove 3 card from deck
     newDeck = removeCard(newDeck, 12);
     //calculate the sets available on board
-    let setsOnBoard = checkIfSetInBoard(board);
+    let setsOnBoard = checkIfSetInBoard(board) || [];
     //console.log(setsInBoard);
     //if available, retrieve player id(for now socket id)
-    let userId = data.player;
+    let userId = data.socketId;
     //create a game with previous info
+    socket.join(passcode);
     Game.create({
       passcode,
       type,
@@ -87,11 +88,12 @@ io.on("connection", (socket) => {
     })
       .then((newGame) => {
         console.log("New game created", newGame.deck.length);
-        io.emit("newGame", { newGame });
+        io.to(passcode).emit("newGame", { newGame });
       })
       .catch((err) => console.log(err));
     //send game to client
   });
+
   socket.on("clickedCard", async (data) => {
     try {
       const clickedCard = { player: data.player, cardId: data.cardId };
@@ -125,6 +127,69 @@ io.on("connection", (socket) => {
     } catch (err) {
       console.log(err);
     }
+  });
+
+  socket.on("add3cards", async (data) => {
+    console.log(data.numOfCards, typeof data.gameId);
+    let currentGame = await Game.findById(data.gameId);
+    console.log(currentGame.deck.length);
+    let newCards = await addCard(currentGame.deck, 3);
+    let board = [...currentGame.board, ...newCards];
+    let deck = await removeCard(currentGame.deck, 3);
+    let updatedGame = await Game.findByIdAndUpdate(
+      data.gameId,
+      { board, deck },
+      { new: true }
+    );
+    let setsOnBoard = checkIfSetInBoard(updatedGame.board);
+    updatedGame = await Game.findByIdAndUpdate(
+      data.gameId,
+      { setsOnBoard },
+      { new: true }
+    );
+    io.emit("added3cards", {
+      board: updatedGame.board,
+      deck: updatedGame.deck,
+      setsOnBoard: updatedGame.setsOnBoard,
+    });
+  });
+  socket.on("checkIfSet", async (data) => {
+    let currentGame = await Game.findById(data.gameId);
+    let selectId = currentGame.selectedCards.map((select) => select.cardId); // give the ids of the selectedCards
+    let threeCards = currentGame.board.filter((card) =>
+      selectId.includes(card.id)
+    ); //give the cards that are selected
+    let updatedGame;
+    let message;
+
+    if (checkIfSet(threeCards)) {
+      updatedGame = await Game.findByIdAndUpdate(
+        data.gameId,
+        {
+          $push: { foundSets: { player: socket.id, cardId: threeCards } },
+          $pull: { board: { id: { $in: selectId } } },
+        },
+        { new: true }
+      );
+      let setsOnBoard = checkIfSetInBoard(updatedGame.board);
+      updatedGame = await Game.findByIdAndUpdate(
+        data.gameId,
+        { setsOnBoard, selectedCards: [] },
+        { new: true }
+      );
+      message = "This is a set";
+    } else {
+      updatedGame = await Game.findByIdAndUpdate(
+        data.gameId,
+        { selectedCards: [] },
+        { new: true }
+      );
+      message = "This is not a set";
+    }
+    io.emit("setChecked", {
+      updatedGame,
+      message,
+    });
   });
 });
 

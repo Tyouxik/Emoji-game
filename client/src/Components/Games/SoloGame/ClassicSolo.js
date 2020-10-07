@@ -13,6 +13,8 @@ const socket = io("http://localhost:4000");
 export default class ClassicSolo extends Component {
   state = {
     socket: socket,
+    type: "classicSolo",
+    passcode: "",
     _id: "",
     deck: [],
     board: [],
@@ -25,15 +27,13 @@ export default class ClassicSolo extends Component {
   };
 
   componentDidMount() {
-    console.log("I did mount with board", this.state.board);
-
     this.state.socket.open();
     this.state.socket.emit("createGame", {
       type: "classicSolo",
-      player: socket.id,
+      socketId: socket.id,
     });
-    //Catch the server message "startGame"
     this.state.socket.on("newGame", (data) => {
+      console.log(socket.id);
       this.setState(data.newGame);
     });
   }
@@ -53,25 +53,71 @@ export default class ClassicSolo extends Component {
     socket.on("selectedCards", (cards) => {
       this.setState({ selectedCards: cards.selectedCards });
     });
+    if (this.state.selectedCards.length === 3) {
+      setTimeout(() => {});
+    }
   };
 
   giveHint = () => {
     this.setState((state, props) => {
       return { showHint: !state.showHint };
     });
-
+    if (this.state.setsOnBoard.length === 0) {
+      this.setState((state, props) => {
+        return { message: "There is no set, add 3 cards" };
+      });
+    }
     setTimeout(() => {
       this.setState((state, props) => {
-        return { showHint: !state.showHint };
+        return { showHint: !state.showHint, message: "" };
       });
-    }, 3000);
+    }, 500);
   };
 
   // componentWillUnmount() {
   //   this.state.socket.close();
   // }
 
+  add3Cards = () => {
+    this.state.socket.emit("add3cards", {
+      gameId: this.state._id,
+      numOfCards: 3,
+    });
+    this.state.socket.on("added3cards", (data) => {
+      this.setState(data);
+    });
+  };
+  checkSet = () => {
+    console.log("I am checking the set");
+    this.state.socket.emit("checkIfSet", {
+      selectedCards: this.state.selectedCards,
+      board: this.state.board,
+      gameId: this.state._id,
+      foundSets: this.state.foundSets,
+      player: this.state._id,
+    });
+    this.state.socket.on("setChecked", (data) => {
+      let { updatedGame, message } = data;
+      console.log("this is updatedGame", updatedGame);
+      const { setsOnBoard, selectedCards, foundSets, board } = updatedGame;
+      console.log(
+        "setsOnBoard",
+        setsOnBoard,
+        "selectedCards",
+        selectedCards,
+        "foundSets",
+        foundSets,
+        "board",
+        board
+      );
+      this.setState({ setsOnBoard, selectedCards, foundSets, board });
+      this.setState({ message });
+    });
+  };
+
   render() {
+    console.log("setsonboard", this.state.setsOnBoard);
+
     if (!this.state.timeIsUp) {
       return (
         <>
@@ -85,13 +131,9 @@ export default class ClassicSolo extends Component {
           </div>
           <div>
             <p>{this.state.message}</p>
-            {/* <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn> */}
-
-            <GameBtn disabled={this.state.showHint} onClick={this.giveHint}>
-              Hint
-            </GameBtn>
-
-            {/* <GameBtn onClick={this.highlightSet}>Find a set</GameBtn> */}
+            <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn>
+            {/* disabled={this.state.showHint} */}
+            <GameBtn onClick={this.giveHint}>Hint</GameBtn>
           </div>
 
           <Board
@@ -101,6 +143,12 @@ export default class ClassicSolo extends Component {
             setsOnBoard={this.state.setsOnBoard}
             showHint={this.state.showHint}
           />
+          <GameBtn
+            onClick={this.checkSet}
+            disabled={this.state.selectedCards.length !== 3}
+          >
+            SET!
+          </GameBtn>
         </>
       );
     } else {
