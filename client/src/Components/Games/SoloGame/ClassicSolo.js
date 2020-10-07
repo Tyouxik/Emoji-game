@@ -1,6 +1,7 @@
 // import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
 import Score from "../Sub-components/Score";
+import Timer from "../Sub-components/Timer";
 import { GameBtn } from "./ClassicSolo-style";
 
 // import { GameBtn } from "./ClassicSolo-style";
@@ -29,7 +30,7 @@ export default class ClassicSolo extends Component {
   componentDidMount() {
     this.state.socket.open();
     this.state.socket.emit("createGame", {
-      type: "classicSolo",
+      type: this.state.type,
       socketId: socket.id,
     });
     this.state.socket.on("newGame", (data) => {
@@ -37,12 +38,12 @@ export default class ClassicSolo extends Component {
       this.setState(data.newGame);
     });
   }
-  // }
-  // handleTimer = (boolean) => {
-  //   this.setState((state, props) => ({
-  //     timeIsUp: boolean,
-  //   }));
-  // };
+
+  handleTimer = (boolean) => {
+    this.setState((state, props) => ({
+      timeIsUp: boolean,
+    }));
+  };
 
   selectCard = (id) => {
     socket.emit("clickedCard", {
@@ -125,9 +126,9 @@ export default class ClassicSolo extends Component {
             <h1 id="title">Classic Solo</h1>
           </div>
           <div id="stats">
-            {/* <Timer maxMins={1} handleTimer={this.handleTimer} />
-                <p>Deck:{this.state.deck.length}</p>
-                <p>You found:{this.state.foundSets.length} sets</p> */}
+            <Timer maxMins={0.5} handleTimer={this.handleTimer} />
+            <p>Deck:{this.state.deck.length}</p>
+            <p>You found:{this.state.foundSets.length} sets</p>
           </div>
           <div>
             <p>{this.state.message}</p>
