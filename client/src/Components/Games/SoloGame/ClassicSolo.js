@@ -2,8 +2,10 @@
 import Board from "../Sub-components/Board";
 import Score from "../Sub-components/Score";
 import Timer from "../Sub-components/Timer";
-import { GameBtn } from "./ClassicSolo-style";
-
+import { Classicsolo } from "./ClassicSolo-style";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Container from "@material-ui/core/Container";
 // import { GameBtn } from "./ClassicSolo-style";
 import React, { Component } from "react";
 const io = require("socket.io-client");
@@ -121,21 +123,43 @@ export default class ClassicSolo extends Component {
 
     if (!this.state.timeIsUp) {
       return (
-        <>
-          <div>
-            <h1 id="title">Classic Solo</h1>
-          </div>
-          <div id="stats">
-            <Timer maxMins={0.5} handleTimer={this.handleTimer} />
-            <p>Deck:{this.state.deck.length}</p>
-            <p>You found:{this.state.foundSets.length} sets</p>
-          </div>
-          <div>
+        <Classicsolo>
+          <h1 className="title">Classic Solo</h1>
+
+          <Container className="game-box">
+            <Timer maxMins={10} handleTimer={this.handleTimer} />
+            <p>Deck: {this.state.deck.length} cards</p>
+            <p>You found: {this.state.foundSets.length} sets</p>
+          </Container>
+          <Container className="message-box">
             <p>{this.state.message}</p>
-            <GameBtn onClick={this.add3Cards}>Add 3 cards</GameBtn>
-            {/* disabled={this.state.showHint} */}
-            <GameBtn onClick={this.giveHint}>Hint</GameBtn>
-          </div>
+          </Container>
+          <ButtonGroup
+            className="btn-box"
+            size="large"
+            // color="primary"
+            // aria-label="large outlined primary button group"
+          >
+            <Button variant="contained" onClick={this.add3Cards}>
+              Add 3 cards
+            </Button>
+            <Button
+              variant="contained"
+              color="default"
+              onClick={this.giveHint}
+              disabled={this.state.showHint}
+            >
+              Hint
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.checkSet}
+              disabled={this.state.selectedCards.length !== 3}
+            >
+              SET !
+            </Button>
+          </ButtonGroup>
 
           <Board
             selectCard={this.selectCard}
@@ -144,13 +168,7 @@ export default class ClassicSolo extends Component {
             setsOnBoard={this.state.setsOnBoard}
             showHint={this.state.showHint}
           />
-          <GameBtn
-            onClick={this.checkSet}
-            disabled={this.state.selectedCards.length !== 3}
-          >
-            SET!
-          </GameBtn>
-        </>
+        </Classicsolo>
       );
     } else {
       return <Score foundSets={this.state.foundSets || []} />;

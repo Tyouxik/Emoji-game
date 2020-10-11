@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import Animista, { AnimistaTypes } from "react-animista";
+import { CardBoard } from "./Board-style";
 
 export default function Board(props) {
   const { board, selectCard, selectedCards, setsOnBoard } = props;
@@ -29,12 +30,13 @@ export default function Board(props) {
   });
   return (
     <Animista
+      className="board-box"
       tag="div"
       type={AnimistaTypes.SCALE_UP_CENTER}
       width="200px"
       duration="2000"
     >
-      {cards}
+      <CardBoard>{cards}</CardBoard>
     </Animista>
   );
 }

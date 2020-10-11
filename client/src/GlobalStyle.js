@@ -10,6 +10,11 @@ export const GlobalStyle = createGlobalStyle`
 
 }
 
+.app {
+background: #f8c100;
+height:100%;
+}
+
 h1 {
     font-family: 'Overpass';
     text-align: center;

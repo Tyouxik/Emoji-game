@@ -122,12 +122,12 @@ export default class AllCardsSolo extends Component {
             setsOnBoard={this.state.setsOnBoard}
             showHint={this.state.showHint}
           />
-          <GameBtn
+          {/* <GameBtn
             onClick={this.checkSet}
             disabled={this.state.selectedCards.length !== 3}
           >
             SET!
-          </GameBtn>
+          </GameBtn> */}
         </>
       );
     } else {

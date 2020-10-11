@@ -2,20 +2,21 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const LandingWrapper = styled.div`
-  display: grid;
+  /* display: grid;
   grid-template-columns: 0.5fr 2fr 0.5fr;
   grid-template-rows: 0.5fr 3fr 0.5fr;
-  gap: 1px 1px;
+  gap: 1px 1px; */
   height: 100vh;
+  background: #f8c100;
 
   #landing {
-    padding: 3%;
-    background: #fe0404;
-    box-shadow: inset 0px 0px 16px 12px rgba(206, 66, 66, 0.55);
+    /* padding: 3%; */
+    background: #f8c100;
+    /* box-shadow: inset 0px 0px 16px 12px rgba(206, 66, 66, 0.55); */
     border-radius: 11px;
-    grid-column-start: 2;
-    grid-row-start: 2;
-    width: 100%;
+    /* grid-column-start: 2;
+    grid-row-start: 2; */
+    /* width: 100vh; */
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -23,7 +24,7 @@ const LandingWrapper = styled.div`
     align-items: center;
   }
   .laugh {
-    width: 50%;
+    width: 20%;
   }
 
   .links {
@@ -40,7 +41,7 @@ const LandingWrapper = styled.div`
 const LandingLink = styled(Link)`
   text-decoration: none;
   color: black;
-  background: #fdd140;
+  background: rgba(252, 0, 0);
   border: 1px solid #f77d41;
   box-sizing: border-box;
   box-shadow: inset 0px 0px 8px 8px rgba(252, 173, 58, 0.76);
