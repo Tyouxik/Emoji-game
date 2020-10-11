@@ -1,92 +1,47 @@
-// import Timer from "../Sub-components/Timer";
 import Board from "../Sub-components/Board";
-// import Score from "../Sub-components/Score";
+import Score from "../Sub-components/Score";
+import Timer from "../Sub-components/Timer";
 
-import { GameBtn } from "./ClassicMulti-style";
 import React, { Component } from "react";
-// const io = require("socket.io-client");
-
-// const socket = io();
+const io = require("socket.io-client");
+const socket = io("http://localhost:4000");
 
 export default class ClassicMulti extends Component {
   state = {
+    socket: socket,
+    type: "classicSolo",
+    passcode: "",
+    player1: "",
+    player2: "",
+    _id: "",
     deck: [],
-    boardCards: [],
+    board: [],
     selectedCards: [],
     foundSets: [],
+    timeIsUp: false,
     message: "",
     setsOnBoard: [],
+    showHint: false,
   };
 
-  // componentDidMount() {
-  // this.setState((state, props) => ({
-  //   deck: shuffleCards(Deck),
-  // }));
-  // this.setState((state, props) => ({
-  //   boardCards: addCard(state.deck, 12),
-  // }));
-  // this.setState((state, props) => ({
-  //   deck: removeCard(state.deck, 12),
-  // }));
-  // //emit board to Socket server
-  // }
+  componentDidMount() {
+    this.state.socket.open();
+    this.state.socket.emit("createGame", {
+      type: this.state.type,
+      socketId: socket.id,
+    });
+    this.state.socket.on("newGame", (data) => {
+      console.log(socket.id);
+      this.setState(data.newGame);
+    });
+  }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (
-  //     this.state.selectedCards !== prevState.selectedCards &&
-  //     this.state.selectedCards.length === 3
-  //   ) {
-  //     if (!checkIfSet(this.state.selectedCards)) {
-  //       this.setState((state, props) => {
-  //         {
-  //           return (
-  //             (state.selectedCards = []), (state.message = "This is not a set")
-  //           );
-  //         }
-  //       });
-  //     } else {
-  //       this.setState((state, props) => ({
-  //         foundSets: addSet(state.selectedCards, state.foundSets),
-  //       }));
-  //       this.setState((state, props) => ({
-  //         boardCards: removeSet(state.selectedCards, state.boardCards),
-  //       }));
-  //       this.setState((state, props) => {
-  //         {
-  //           return (
-  //             (state.selectedCards = []), (state.message = "This is a set")
-  //           );
-  //         }
-  //       });
-  //     }
-  //   }
-  //   if (this.state.boardCards !== prevState.boardCards) {
-  //     console.log("The board has changed", this.state.boardCards);
-  //     this.setState((state, props) => ({
-  //       setsOnBoard: checkIfSetInBoard(this.state.boardCards),
-  //     }));
-  //   }
-  // }
+  handleTimer = (boolean) => {
+    this.setState((state, props) => ({
+      timeIsUp: boolean,
+    }));
+  };
 
-  // selectCard = (id) => {
-  //   this.setState((state, props) => ({
-  //     selectedCards: changeSelectedCards(
-  //       id,
-  //       state.selectedCards,
-  //       state.boardCards
-  //     ),
-  //   }));
-  // };
-
-  // add3Cards = () => {
-  //   console.log("I add 3 cards");
-  //   this.setState((state, props) => ({
-  //     boardCards: addCard(state.deck, 3, state.boardCards),
-  //   }));
-  //   this.setState((state, props) => ({
-  //     deck: removeCard(state.deck, 3),
-  //   }));
-  // };
   render() {
     return (
       <>

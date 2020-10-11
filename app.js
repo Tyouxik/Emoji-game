@@ -16,6 +16,7 @@ const {
   checkIfSetInBoard,
 } = require("./public/javascripts/score");
 const Game = require("./models/Game");
+
 var app = express();
 
 const http = require("http").createServer(app);
@@ -201,7 +202,7 @@ io.on("connection", async (socket) => {
 });
 
 http.listen(4000, () => {
-  console.log("listening on port 3000");
+  console.log("listening on port 4000");
 });
 
 module.exports = app;
