@@ -7,7 +7,8 @@ const LandingWrapper = styled.div`
   grid-template-rows: 0.5fr 3fr 0.5fr;
   gap: 1px 1px; */
   height: 100vh;
-  background: #f8c100;
+  background: linear-gradient(179.61 deg, #ffc600 20.54%, #ffdd66 98.45%),
+    #f8c100;
 
   #landing {
     /* padding: 3%; */
@@ -29,7 +30,7 @@ const LandingWrapper = styled.div`
 
   .links {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -41,14 +42,14 @@ const LandingWrapper = styled.div`
 const LandingLink = styled(Link)`
   text-decoration: none;
   color: black;
-  background: rgba(252, 0, 0);
-  border: 1px solid #f77d41;
+  background: white;
+  border: 4px solid black;
   box-sizing: border-box;
-  box-shadow: inset 0px 0px 8px 8px rgba(252, 173, 58, 0.76);
-  border-radius: 11px;
+  //box-shadow: inset 0px 0px 8px 8px rgba(252, 173, 58, 0.76);
+  border-radius: 0px;
   padding: 5px 20px;
   margin: 10px auto;
-  width: 80%;
+  width: 40%;
   height: 25%;
   display: flex;
   flex-direction: row;

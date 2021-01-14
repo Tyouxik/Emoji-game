@@ -1,17 +1,17 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Landing from "./Components/Landing/Landing";
-import ClassicSolo from "./Components/Games/SoloGame/ClassicSolo";
-import Instructions from "./Components/Instructions/Instructions";
-import { withRouter } from "react-router";
-import AllCardsSolo from "./Components/Games/SoloGame/AllCardsSolo";
-import ClassicMulti from "./Components/Games/MultiplayerGame/ClassicMulti";
-import LandingMulti from "./Components/Landing/LandingMulti";
+import Landing from "./Components/Landing";
+import ClassicSolo from "./Components/ClassicSolo";
+import Instructions from "./Components/Instructions";
+//import { withRouter } from "react-router-dom";
+import AllCardsSolo from "./Components/AllCardsSolo";
+import ClassicMulti from "./Components/ClassicMulti";
+import LandingMulti from "./Components/LandingMulti";
 import UnderConstruction from "./Components/UnderConstruction";
 
-const LocationDisplay = withRouter(({ location }) => (
+/* const LocationDisplay = withRouter(({ location }) => (
   <div data-testid="location-display">{location.pathname}</div>
-));
+)); */
 
 function App() {
   return (
@@ -29,4 +29,4 @@ function App() {
   );
 }
 
-export { LocationDisplay, App };
+export { App };
