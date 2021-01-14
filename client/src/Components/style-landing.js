@@ -9,7 +9,9 @@ const LandingWrapper = styled.div`
   height: 100vh;
   background: linear-gradient(179.61 deg, #ffc600 20.54%, #ffdd66 98.45%),
     #f8c100;
-
+  h1 {
+    margin: 10px 0px;
+  }
   #landing {
     /* padding: 3%; */
     background: #f8c100;
