@@ -1,7 +1,7 @@
 // import Timer from "../Sub-components/Timer";
-import Board from "../Sub-components/Board";
-import Score from "../Sub-components/Score";
-import Timer from "../Sub-components/Timer";
+import Board from "./Sub-components/Board";
+import Score from "./Sub-components/Score";
+import Timer from "./Sub-components/Timer";
 import { GameBtn } from "./ClassicSolo-style";
 
 // import { GameBtn } from "./ClassicSolo-style";

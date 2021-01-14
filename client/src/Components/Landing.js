@@ -1,5 +1,5 @@
 import React from "react";
-import LaughEmo from "../../Images/Lotties/laugh-emoji.json";
+import LaughEmo from "../Images/Lotties/laugh-emoji.json";
 import Lottie from "react-lottie";
 import { LandingWrapper, LandingLink } from "./style-landing";
 
@@ -21,8 +21,10 @@ export default function Landing() {
           <Lottie options={defaultOptions} />
         </div>
         <div className="links">
-          <LandingLink to="/classicmulti">Create a game</LandingLink>
-          <LandingLink to="/classicmulti">Join a game</LandingLink>
+          <LandingLink to="/classicsolo">Classic Solo</LandingLink>
+          <LandingLink to="/allcardssolo">All Cards Solo</LandingLink>
+          <LandingLink to="/instructions">Instructions</LandingLink>
+          <LandingLink to="/landingmulti">Classic Multi</LandingLink>
         </div>
       </div>
     </LandingWrapper>

@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/" component={Landing} />
         <Route exact path="/classicsolo" component={ClassicSolo} />
         <Route exact path="/allcardssolo" component={AllCardsSolo} />
-        <Route exact path="/landingmulti" component={UnderConstruction} />
+        <Route exact path="/landingmulti" component={LandingMulti} />
         <Route exact path="/instructions" component={Instructions} />
         <Route exact path="/classicmulti" component={UnderConstruction} />
       </Switch>

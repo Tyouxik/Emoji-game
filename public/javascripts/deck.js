@@ -1,3 +1,5 @@
+//@ts-check
+
 const types = ["cool", "hug", "laugh"];
 const colors = ["yellow", "blue", "red"];
 const numbers = [1, 2, 3];

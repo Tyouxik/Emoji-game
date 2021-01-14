@@ -5,7 +5,7 @@ const CardBoard = styled.div`
   max-height: 50vh;
   margin: 0 5vw;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;

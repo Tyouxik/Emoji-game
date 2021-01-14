@@ -20,7 +20,7 @@ export default function Board(props) {
     return (
       <Card
         isSelected={selected}
-        showHint={props.showHint}
+        showHint={props.showHint || false}
         isHint={hint}
         selectCard={selectCard}
         key={card.image}

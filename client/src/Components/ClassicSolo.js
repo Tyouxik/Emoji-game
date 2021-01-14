@@ -1,7 +1,7 @@
 // import Timer from "../Sub-components/Timer";
-import Board from "../Sub-components/Board";
-import Score from "../Sub-components/Score";
-import Timer from "../Sub-components/Timer";
+import Board from "./Sub-components/Board";
+import Score from "./Sub-components/Score";
+import Timer from "./Sub-components/Timer";
 import { Classicsolo } from "./ClassicSolo-style";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";

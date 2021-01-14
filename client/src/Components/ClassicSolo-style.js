@@ -20,6 +20,9 @@ const Classicsolo = styled.div`
     height: 50px;
     background: white;
     border-radius: 15px;
+    font-size: 36px;
+    line-height: 50px;
+    text-align: center;
 
     /* width: 100% */
   }

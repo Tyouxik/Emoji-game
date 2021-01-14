@@ -1,6 +1,6 @@
-import Board from "../Sub-components/Board";
-import Score from "../Sub-components/Score";
-import Timer from "../Sub-components/Timer";
+import Board from "./Sub-components/Board";
+import Score from "./Sub-components/Score";
+import Timer from "./Sub-components/Timer";
 
 import React, { Component } from "react";
 const io = require("socket.io-client");
