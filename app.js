@@ -25,7 +25,7 @@ const io = require("socket.io")(http);
 mongoose
   .set("useUnifiedTopology", true)
   .set("useFindAndModify", false)
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/emoji-game", {
+  .connect("mongodb://localhost/emoji-game" || process.env.MONGODB_URI, {
     useNewUrlParser: true,
   })
   .then((x) => {
