@@ -17,7 +17,7 @@ const {
   checkIfSetInBoard,
 } = require("./public/javascripts/score");
 const Game = require("./models/Game");
-
+var indexRoute = requre("./routes/index.js");
 var app = express();
 
 const http = require("http").createServer(app);
@@ -42,6 +42,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use("/", indexRoute);
 app.use(express.static(path.join(__dirname, "public")));
 
 // catch 404 and forward to error handler
