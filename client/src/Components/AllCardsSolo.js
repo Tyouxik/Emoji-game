@@ -7,7 +7,7 @@ import { GameBtn } from "./ClassicSolo-style";
 // import { GameBtn } from "./ClassicSolo-style";
 import React, { Component } from "react";
 const io = require("socket.io-client");
-const socket = io("http://localhost:4000");
+const socket = io(process.env.BACKEND_URL || "http://localhost:4000");
 
 //Event emiter
 
