@@ -9,10 +9,6 @@ import ClassicMulti from "./Components/ClassicMulti";
 import LandingMulti from "./Components/LandingMulti";
 import UnderConstruction from "./Components/UnderConstruction";
 
-/* const LocationDisplay = withRouter(({ location }) => (
-  <div data-testid="location-display">{location.pathname}</div>
-)); */
-
 function App() {
   return (
     <div className="app">
@@ -24,7 +20,6 @@ function App() {
         <Route exact path="/instructions" component={Instructions} />
         <Route exact path="/classicmulti" component={UnderConstruction} />
       </Switch>
-      {/* <LocationDisplay /> */}
     </div>
   );
 }
