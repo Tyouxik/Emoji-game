@@ -1,3 +1,5 @@
-const yellow = "#fdd140";
+const pink = "#ea70f6";
+const grey = "#868ea2";
+const orange = "#fca863";
 
-export { yellow };
+export { pink, grey, orange };
