@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
-  passcode: String,
+  room: String,
   type: {
     type: String,
     enum: ["classicSolo", "allCardsSolo", "classicMulti", "allCardsMulti"],
