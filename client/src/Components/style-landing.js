@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { pink, grey, orange } from "../../color";
 
 const LandingWrapper = styled.div`
   .grid-container {

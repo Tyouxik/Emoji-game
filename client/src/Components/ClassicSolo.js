@@ -9,7 +9,9 @@ import Container from "@material-ui/core/Container";
 // import { GameBtn } from "./ClassicSolo-style";
 import React, { Component } from "react";
 const io = require("socket.io-client");
-const socket = io(process.env.REACT_APP_BACKEND_URL || "http://localhost:4000");
+const socket = io(
+  process.env.REACT_APP_BACKEND_URL_EXT || "http://localhost:4000"
+);
 
 //Event emiter
 
