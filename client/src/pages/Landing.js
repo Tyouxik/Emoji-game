@@ -1,6 +1,6 @@
 import React from "react";
 import { LandingWrapper, LandingLink } from "./style-landing";
-import SwipeableTextMobileStepper from "./Sub-components/Instructions-carousel";
+import SwipeableTextMobileStepper from "../Components/Sub-components/Instructions-carousel";
 
 export default function Landing() {
   return (

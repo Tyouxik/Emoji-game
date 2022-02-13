@@ -6,10 +6,8 @@ import logger from "morgan";
 import dotenv from "dotenv";
 import { createDbClient } from "./clients/dbClient.js";
 import { createServer } from "http";
-import Server from "socket.io";
+import { Server } from "socket.io";
 import { fileURLToPath } from "url";
-
-import { createRoomHandlers, createGameHandlers } from "./socketIoHandlers";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
