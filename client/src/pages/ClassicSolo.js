@@ -7,7 +7,9 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Container from "@material-ui/core/Container";
 // import { GameBtn } from "./ClassicSolo-style";
-import React, { Component } from "react";
+import React, { useEffect, useReducer } from "react";
+import { gameReducer } from "../reducers/gameReducer";
+
 const io = require("socket.io-client");
 const socket = io(
   process.env.REACT_APP_BACKEND_URL_EXT || "http://localhost:4000"
@@ -15,6 +17,40 @@ const socket = io(
 
 //Event emiter
 
+const initialState = {
+  socket: socket,
+  type: "classicSolo",
+  passcode: "",
+  _id: "",
+  deck: [],
+  board: [],
+  selectedCards: [],
+  foundSets: [],
+  timeIsUp: false,
+  message: "",
+  setsOnBoard: [],
+  showHint: false,
+};
+
+export default function ClassicSolo() {
+  const [state, dispatch] = useReducer(gameReducer, initialState);
+
+  useEffect(() => {
+    state.socket.open();
+    state.socket.emit("game:create", {
+      type: state.type,
+      socketId: state.socket.id,
+    });
+    state.socket.on("game:create", (data) => {
+      console.log(socket.id);
+      this.setState(data.newGame);
+    });
+  }, []);
+
+  return <div>ClassicSolo</div>;
+}
+
+/* 
 export default class ClassicSolo extends Component {
   state = {
     socket: socket,
@@ -177,3 +213,4 @@ export default class ClassicSolo extends Component {
     }
   }
 }
+ */

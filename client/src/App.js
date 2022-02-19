@@ -5,7 +5,6 @@ import ClassicSolo from "./pages/ClassicSolo";
 import Instructions from "./pages/Instructions";
 //import { withRouter } from "react-router-dom";
 import AllCardsSolo from "./pages/AllCardsSolo";
-import ClassicMulti from "./pages/ClassicMulti";
 import LandingMulti from "./pages/LandingMulti";
 import UnderConstruction from "./pages/UnderConstruction";
 
