@@ -1,0 +1,32 @@
+.card {
+  width: 100%;
+  /* border: 1px solid grey; */
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-image {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.selected {
+  /* border: 1px solid red; */
+  box-shadow: 0 4px 8px 0 rgba(228, 6, 6, 0.2),
+    0 6px 20px 0 rgba(228, 6, 6, 0.2);
+}
+
+.hint {
+  animation: blink-animation 0.5s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
