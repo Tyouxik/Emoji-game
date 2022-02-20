@@ -1,13 +1,12 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Landing from "./Components/Landing";
-import ClassicSolo from "./Components/ClassicSolo";
-import Instructions from "./Components/Instructions";
+import Landing from "./pages/Landing";
+import ClassicSolo from "./pages/ClassicSolo";
+import Instructions from "./pages/Instructions";
 //import { withRouter } from "react-router-dom";
-import AllCardsSolo from "./Components/AllCardsSolo";
-import ClassicMulti from "./Components/ClassicMulti";
-import LandingMulti from "./Components/LandingMulti";
-import UnderConstruction from "./Components/UnderConstruction";
+import AllCardsSolo from "./pages/AllCardsSolo";
+import LandingMulti from "./pages/LandingMulti";
+import UnderConstruction from "./pages/UnderConstruction";
 
 function App() {
   return (
