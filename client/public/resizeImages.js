@@ -13,7 +13,6 @@ fs.readdir('images', function(err, files) {
       await sharp(`images/${file}`)
           .resize({
             width: 300,
-            height: 200,
           })
           .toFile(`images-sm/${file}`);
 
