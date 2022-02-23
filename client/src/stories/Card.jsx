@@ -19,17 +19,17 @@ export default function Card(props) {
     <div className={cardStyle} onClick={() => selectCard(card.id)}>
       <img
         className={imgStyle}
-        src={`images/${card.imagePath}`}
+        src={`images-sm/${card.imgName}`}
         alt={card.image} />
     </div>
   );
 }
 
 Card.propTypes = {
-  card: PropTypes.array.required,
-  selectCard: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  showHint: PropTypes.bool.isRequired,
-  isHint: PropTypes.bool.isRequired,
+  card: PropTypes.object,
+  selectCard: PropTypes.func,
+  isSelected: PropTypes.bool,
+  showHint: PropTypes.bool,
+  isHint: PropTypes.bool,
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Card from './Card';
 
 export default {
@@ -13,14 +12,24 @@ export default {
     isHint: {control: 'boolean', required: true},
   },
   args: {
-    card: {id: 'random id', imagePath: `cool-blue-2-right.jpg`},
+    card: {
+      type: 'cool',
+      color: 'yellow',
+      number: 1,
+      tilted: 'left',
+      imgName: 'cool-yellow-3-left.jpg',
+      id: '0',
+      score: 2211,
+    },
     isSelected: false,
     showHint: false,
     isHint: false,
   },
 };
 
-const Template = (args) => <Card {...args} />;
+const Template = (args) => {
+  return <Card {...args} />;
+};
 
 export const Regular = Template.bind({});
 
