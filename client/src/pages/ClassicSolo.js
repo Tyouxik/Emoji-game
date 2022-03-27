@@ -1,47 +1,48 @@
+/* eslint-disable require-jsdoc */
 // import Timer from "../Sub-components/Timer";
-import Board from "../Components/Sub-components/Board";
-import Score from "../Components/Sub-components/Score";
-import Timer from "../Components/Sub-components/Timer";
-import { Classicsolo } from "./ClassicSolo-style";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Container from "@material-ui/core/Container";
+/* import Board from '../Components/Sub-components/Board';
+import Score from '../Components/Sub-components/Score';
+import Timer from '../Components/Sub-components/Timer';
+import {Classicsolo} from './ClassicSolo-style';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Container from '@material-ui/core/Container'; */
 // import { GameBtn } from "./ClassicSolo-style";
-import React, { useEffect, useReducer } from "react";
-import { gameReducer } from "../reducers/gameReducer";
+/* import React, {useEffect, useReducer} from 'react';
+import {gameReducer} from '../reducers/gameReducer'; */
 
-const io = require("socket.io-client");
+const io = require('socket.io-client');
 const socket = io(
-  process.env.REACT_APP_BACKEND_URL_EXT || "http://localhost:4000"
+    process.env.REACT_APP_BACKEND_URL_EXT || 'http://localhost:4000',
 );
 
-//Event emiter
+// Event emiter
 
 const initialState = {
   socket: socket,
-  type: "classicSolo",
-  passcode: "",
-  _id: "",
+  type: 'classicSolo',
+  passcode: '',
+  _id: '',
   deck: [],
   board: [],
   selectedCards: [],
   foundSets: [],
   timeIsUp: false,
-  message: "",
+  message: '',
   setsOnBoard: [],
   showHint: false,
 };
 
 export default function ClassicSolo() {
-  const [state, dispatch] = useReducer(gameReducer, initialState);
+  // const [state, dispatch] = useReducer(gameReducer, initialState);
 
   useEffect(() => {
     state.socket.open();
-    state.socket.emit("game:create", {
+    state.socket.emit('game:create', {
       type: state.type,
       socketId: state.socket.id,
     });
-    state.socket.on("game:create", (data) => {
+    state.socket.on('game:create', (data) => {
       console.log(socket.id);
       this.setState(data.newGame);
     });
@@ -50,7 +51,7 @@ export default function ClassicSolo() {
   return <div>ClassicSolo</div>;
 }
 
-/* 
+/*
 export default class ClassicSolo extends Component {
   state = {
     socket: socket,

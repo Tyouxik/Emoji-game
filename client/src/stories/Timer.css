@@ -1,0 +1,11 @@
+.counter {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 0.5em 1em;
+  font-size: large;
+}
+
+.time {
+  color: red;
+}
